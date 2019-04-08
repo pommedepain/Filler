@@ -6,7 +6,7 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 17:20:13 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/08 17:28:13 by psentilh         ###   ########.fr        #
+#    Updated: 2019/04/08 19:06:13 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,9 @@ NAME = psentilh.filler
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -I$(INC_DIR)
 
-SRC_DIR = ./src/
+SRC_DIR = ./src_filler/
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
-SRC =
+SRC =	main.c\
 
 OBJ_DIR = ./obj_filler/
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
