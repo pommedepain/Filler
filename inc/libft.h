@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 16:28:14 by cajulien          #+#    #+#             */
-/*   Updated: 2019/04/08 16:14:11 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/09 18:49:05 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,5 +328,6 @@ char				*ft_ulltoa_base(unsigned long long n, int b_size,
 					char *base);
 int					ft_word_count(char *s, char c);
 int					get_next_line(const int fd, char **line);
+char				*ft_strccpy(char *dst, const char *src, char c);
 
 #endif

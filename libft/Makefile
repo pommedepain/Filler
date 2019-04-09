@@ -6,7 +6,7 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/05 17:28:41 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/08 17:03:19 by psentilh         ###   ########.fr        #
+#    Updated: 2019/04/09 18:48:59 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,6 +101,7 @@ SRC =	ft_lltoa_base.c\
 		ft_strtrimc.c\
 		ft_strclen.c\
 		ft_tabcpy.c\
+		ft_strccpy.c\
 		ft_strndup.c\
 		ft_strnlen.c\
 		ft_chrchar.c\
@@ -146,15 +147,14 @@ INC = libft.h
 
 all: $(NAME)
 
-$(NAME): $(OBJ_DIR) $(OBJS)
+$(NAME): $(MSSG) $(OBJ_DIR) $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo "\033[31m\033[1mCreating $(NAME)...\033[0m"
-	@echo "\033[32m\033[1m$(NAME) all done and ready to go ! 🤗 \033[0m"
+	@echo "\033[32m>>> $(NAME) is ready to use ! ✅  <<<\033[0m"
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(INCS)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "\033[36mCompiling $<...\033[0m"
+	@echo "\033[36m[Compiling] :	$<...\033[0m"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
@@ -162,10 +162,10 @@ $(OBJ_DIR):
 clean:
 	@rm -f $(OBJS)
 	@rm -rf obj/
-	@echo "\033[35mCleaning $(OBJ_DIR)...\033[0m"
+	@echo "\033[35m[Cleaning] :	$(OBJ_DIR)...\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[32mCleaning $(NAME)...\033[0m"
+	@echo "\033[32m[Cleaning] :	$(NAME)...\033[0m"
 
 re: fclean all
