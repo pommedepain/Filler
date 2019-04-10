@@ -6,7 +6,7 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 17:20:13 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/09 19:20:40 by psentilh         ###   ########.fr        #
+#    Updated: 2019/04/10 14:56:54 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ endif
 SRC_DIR = ./src_filler/
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 SRC =	main.c\
-		parsing.c\
 
 OBJ_DIR = ./obj_filler/
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
