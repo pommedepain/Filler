@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/10 14:57:01 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/11 18:00:49 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-
-# define NUM 0123456789
 
 typedef struct		s_game
 {
@@ -36,6 +34,20 @@ typedef struct		s_player
 	char	id_enmy;
 }					t_player;
 
-t_game		*init_board(t_game *board);
+/*
+** main.c
+*/
+t_game		*init_game(t_game *game);
+t_player	*init_player(t_player *player);
+int			game_malloc(t_game *game);
+
+/*
+** parsing.c
+*/
+int			get_size(t_game *game);
+int			check_count_board(t_game *board, char *str);
+t_game		*game_loop(t_game *game);
+int			check_first_board(t_game *board);
+void		parse_piece(void);
 
 #endif

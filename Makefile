@@ -6,11 +6,9 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 17:20:13 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/10 14:56:54 by psentilh         ###   ########.fr        #
+#    Updated: 2019/04/11 16:48:09 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-.PHONY: all clean fclean re
 
 NAME = psentilh.filler
 
@@ -25,6 +23,7 @@ endif
 SRC_DIR = ./src_filler/
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 SRC =	main.c\
+		parsing.c\
 
 OBJ_DIR = ./obj_filler/
 OBJS = $(addprefix $(OBJ_DIR), $(OBJ))
@@ -63,3 +62,12 @@ fclean: clean
 	@echo "\033[32m[Cleaning] :	$(NAME)...\033[0m"
 
 re: fclean all
+
+norme:
+	@printf "\e[31m"
+	@norminette $(SRCS) | grep -Eiw -B1 "Warning|Error" || true
+	@printf "\n"
+	@norminette $(INC_DIR) | grep -Eiw -B1 "Warning|Error" || true
+	@printf "\e[0m\n"
+
+.PHONY: all clean fclean re norme
