@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/15 16:13:45 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:07:07 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ int			game_malloc(t_game *game)
 int			main(void)
 {
 	t_game		*board;
+	t_game		*piece;
 	t_player	*player;
+	t_point		*np;
 	char		*line;
 	int i;
 
 	line = NULL;
 	board = NULL;
 	player = NULL;
+	piece = NULL;
 	if (get_next_line(0, &line) && ft_strlens(line) > 10 && ft_strncmp(line, "$$$ exec p", 11) && (line[10] == '1' || line [10] == '2'))
 	{
 		player = init_player(player);
@@ -95,8 +98,11 @@ int			main(void)
 		return (-1);
 	}
 	//printf("Valid i = %d\n", i);
-	parse_piece();
-	free_bp(board, player);
-	ft_strdel(&line);
+	piece = init_game(piece);
+	piece = parse_piece(piece);
+	np = new_point(0, 0);
+	np = choose_place_board(board, piece, player);
+	free_game(board, piece, player);
+	//ft_strdel(&line);
 	return (0);
 }

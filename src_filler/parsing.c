@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/15 17:25:28 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:05:12 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,13 @@ int			check_first_board(t_game *board)
 	return (0);
 }
 
-void		parse_piece(void)
+t_game		*parse_piece(t_game *piece)
 {
-	t_game *piece;
-
-	piece = NULL;
-	piece = init_game(piece);
 	get_size(piece);
 	if (game_loop(piece) == NULL)
+	{
 		free_game(piece, piece, (t_player *)piece);
+		return(NULL);
+	}
+	return (piece);
 }

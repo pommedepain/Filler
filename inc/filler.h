@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/15 17:39:33 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/15 18:07:56 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,18 @@ int			get_size(t_game *game);
 int			check_count_board(t_game *board, char *str);
 t_game		*game_loop(t_game *game);
 int			check_first_board(t_game *board);
-void		parse_piece(void);
+t_game		*parse_piece(t_game *piece);
 
+/*
+** place.c
+*/
+t_point		*choose_place_board(t_game *board, t_game *piece, t_player *player, t_point *point);
+
+/*
+** utils.c
+*/
 void		free_bp(t_game *board, t_player *player);
 void		free_game(t_game *board, t_game *piece, t_player *player);
+t_point		*new_point(int x, int y);
 
 #endif
