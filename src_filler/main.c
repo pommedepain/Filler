@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/11 18:00:34 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/15 16:13:45 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ int			game_malloc(t_game *game)
 	while (i < game->h)
 	{
 		if (!(game->form[i] = (char *)ft_memalloc(sizeof(char) * (game->w + 1))))
+		{
+			ft_tabdel(game->form);
+			free(game);
+			game = NULL;
 			return (-1);
+		}
 		i++;
 	}
 	game->form[game->h - 1][game->w] = '\0';
@@ -68,24 +73,30 @@ int			main(void)
 	}
 	board = init_game(board);
 	if(get_size(board) == -1)
+	{
+		free_bp(board, player);
 		return (-1);
+	}
 	ft_strdel(&line);
 	// on jump la ligne 0123456789
 	get_next_line(0, &line);
 	ft_strdel(&line);
 	if (game_loop(board) == NULL)
 	{
-		//free_game(board);
+		free(player);
+		player = NULL;
 		return (-1);
 	}
 	i = 0;
 	if ((i = check_first_board(board) == -1))
 	{
+		free_bp(board, player);
 		//printf("Error i = %d\n", i);
-		//free_game(board);
 		return (-1);
 	}
 	//printf("Valid i = %d\n", i);
 	parse_piece();
+	free_bp(board, player);
+	ft_strdel(&line);
 	return (0);
 }

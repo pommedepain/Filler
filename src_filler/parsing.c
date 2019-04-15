@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/11 18:01:28 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/15 17:25:28 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,12 @@ int			get_size(t_game *game)
 	game->w = nb;
 	ft_printf("\nh = %d\nw = %d\n", game->h, game->w);
 	if (game_malloc(game) == -1)
+	{
+		ft_tabdel(game->form);
+		ft_strdel(&line);
 		return (-1);
+	}
+	ft_strdel(&line);
 	return (0);
 }
 
@@ -50,6 +55,7 @@ int			check_count_board(t_game *board, char *str)
 	i = (board->w + 4);
 	if (count != (board->w + 4))
 	{
+		ft_strdel(board->form);
 		//printf("Error = %d\n", count);
 		return (-1);
 	}
@@ -62,14 +68,19 @@ t_game		*game_loop(t_game *game)
 	int i;
 	char **tmp;
 
-	if (!(tmp = (char **)ft_memalloc(sizeof(char *) * (game->h + 1))))
+	if (!(tmp = (char **)malloc(sizeof(char *) * (game->h + 1))))
 		return (NULL);
+	ft_bzero(*tmp, (game->h + 1));
 	tmp[game->h] = 0;
 	i = 0;
 	while (i < game->h)
 	{
-		if (!(tmp[i] = (char *)ft_memalloc(sizeof(char) * (game->w + 1))))
+		if (!(tmp[i] = (char *)malloc(sizeof(char) * (game->w + 1))))
+		{
+			ft_tabdel(tmp);
 			return (NULL);
+		}
+		ft_bzero(tmp[i], (game->w + 1));
 		i++;
 	}
 	tmp[game->h - 1][game->w] = '\0';
@@ -83,12 +94,15 @@ t_game		*game_loop(t_game *game)
 				ft_strccpy(game->form[i], tmp[0], ' ');
 			else
 			{
-				//free_game(game);
+				ft_tabdel(game->form);
+				free(game);
+				game = NULL;
 				return (NULL);
 			}
 		}
 		else
 			ft_strcpy(game->form[i], tmp[0]);
+		ft_strdel(tmp);
 	}
 	ft_print_words_tables(game->form);
 	ft_tabdel(tmp);
@@ -125,7 +139,7 @@ int			check_first_board(t_game *board)
 	//printf("count = %d\ncount O = %d\ncount X = %d\n", count, count_O, count_X);
 	if (count_O != 1 || count_X != 1 || count != (board->h * board->w - 2))
 	{
-		//free_game(board);
+		free_game(board, board, (t_player *)board);
 		return (-1);
 	}
 	return (0);
@@ -138,5 +152,6 @@ void		parse_piece(void)
 	piece = NULL;
 	piece = init_game(piece);
 	get_size(piece);
-	game_loop(piece);
+	if (game_loop(piece) == NULL)
+		free_game(piece, piece, (t_player *)piece);
 }
