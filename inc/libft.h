@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 16:28:14 by cajulien          #+#    #+#             */
-/*   Updated: 2019/04/09 18:49:05 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/15 17:05:11 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "wchar.h"
 
 # define BUFF_SIZE	42
+# define _FD_MAX_  1024
 
 typedef struct		s_list
 {
