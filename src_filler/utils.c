@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:35:47 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/15 18:00:30 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:57:35 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,36 @@ void		free_game(t_game *board, t_game *piece, t_player *player)
 	}
 	if (piece)
 	{
-		ft_tabdel(board->form);
-		free(board);
-		board = NULL;
+		ft_tabdel(piece->form);
+		free(piece);
+		piece = NULL;
 	}
 	if (player)
 	{
 		free(player);
 		player = NULL;
 	}
+}
+
+t_game		*init_game(t_game *game)
+{
+	if (!(game = (t_game *)ft_memalloc(sizeof(t_game))))
+		return (NULL);
+	game->h = 0;
+	game->w = 0;
+	game->size = 0;
+	game->form = NULL;
+	return (game);
+}
+
+t_player	*init_player(t_player *player)
+{
+	if (!(player = (t_player *)ft_memalloc(sizeof(t_player))))
+		return (NULL);
+	player->nb = 0;
+	player->id = 0;
+	player->name = NULL;
+	return (player);
 }
 
 t_point		*new_point(int x, int y)

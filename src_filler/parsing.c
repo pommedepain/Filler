@@ -6,11 +6,34 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/15 18:05:12 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/16 19:57:49 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
+int			game_malloc(t_game *game)
+{
+	int i;
+
+	if (!(game->form = (char **)ft_memalloc(sizeof(char *) * (game->h + 1))))
+		return (-1);
+	game->form[game->h] = 0;
+	i = 0;
+	while (i < game->h)
+	{
+		if (!(game->form[i] = (char *)ft_memalloc(sizeof(char) * (game->w + 1))))
+		{
+			ft_tabdel(game->form);
+			free(game);
+			game = NULL;
+			return (-1);
+		}
+		i++;
+	}
+	game->form[game->h - 1][game->w] = '\0';
+	return (0);
+}
 
 int			get_size(t_game *game)
 {
@@ -43,34 +66,14 @@ int			get_size(t_game *game)
 	return (0);
 }
 
-int			check_count_board(t_game *board, char *str)
-{
-	int		count;
-	int		i;
-
-	count = 0;
-	i = 0;
-	while(str[i++])
-		count++;
-	i = (board->w + 4);
-	if (count != (board->w + 4))
-	{
-		ft_strdel(board->form);
-		//printf("Error = %d\n", count);
-		return (-1);
-	}
-	//printf("right count = %d\n", i);
-	return (0);
-}
-
 t_game		*game_loop(t_game *game)
 {
 	int i;
 	char **tmp;
 
-	if (!(tmp = (char **)malloc(sizeof(char *) * (game->h + 1))))
+	if (!(tmp = (char **)ft_memalloc(sizeof(char *) * (game->h + 1))))
 		return (NULL);
-	ft_bzero(*tmp, (game->h + 1));
+	//ft_bzero(*tmp, (game->h + 1));
 	tmp[game->h] = 0;
 	i = 0;
 	while (i < game->h)
@@ -107,51 +110,4 @@ t_game		*game_loop(t_game *game)
 	ft_print_words_tables(game->form);
 	ft_tabdel(tmp);
 	return (game);
-}
-
-int			check_first_board(t_game *board)
-{
-	int i;
-	int j;
-	int	count_X;
-	int count_O;
-	int count;
-
-	i = -1;
-	count_X = 0;
-	count_O = 0;
-	count = 0;
-	while (++i < board->h)
-	{
-		j = -1;
-		while (board->form[i][++j])
-		{
-			if (board->form[i][j] == 'X')
-				count_X += 1;
-			if (board->form[i][j] == 'O')
-				count_O += 1;
-			if (board->form[i][j] == '.')
-				count += 1;
-		}
-	}
-	i = (board->h * board->w - 2);
-	//printf("\nright nb . = %d\n", i);
-	//printf("count = %d\ncount O = %d\ncount X = %d\n", count, count_O, count_X);
-	if (count_O != 1 || count_X != 1 || count != (board->h * board->w - 2))
-	{
-		free_game(board, board, (t_player *)board);
-		return (-1);
-	}
-	return (0);
-}
-
-t_game		*parse_piece(t_game *piece)
-{
-	get_size(piece);
-	if (game_loop(piece) == NULL)
-	{
-		free_game(piece, piece, (t_player *)piece);
-		return(NULL);
-	}
-	return (piece);
 }
