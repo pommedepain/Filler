@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/16 20:04:51 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:23:10 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ typedef struct		s_point
 */
 int			check_count_board(t_game *board, char *str);
 int			check_first_board(t_game *board);
-int			get_board(t_game *board, char *line);
+t_game		*get_board(t_game *board, char *line);
 
 /*
 ** piece.c
 */
 void		get_size_sign(t_game *game);
 t_game		*parse_piece(t_game *piece);
-int			get_piece(t_game *piece/*, char *line*/);
+t_game		*get_piece(t_game *piece/*, char *line*/);
 
 /*
 ** parsing.c
@@ -63,8 +63,10 @@ int			get_size(t_game *game);
 t_game		*game_loop(t_game *game);
 
 /*
-** place.c
+** solve.c
 */
+int			*find_enmy(t_game *board, t_player *player, int *enmy);
+int			solve(t_game *board, t_game *piece, t_player *player);
 t_point		*choose_place_board(t_game *board, t_game *piece, t_player *player, t_point *point);
 
 /*

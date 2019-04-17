@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/17 11:16:20 by pommedepin       ###   ########.fr       */
+/*   Updated: 2019/04/17 16:22:25 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int			main(void)
 		player->id_enmy = (line[10] == '1' ? 'X' : 'O');
 	}
 	printf("player id = %c\n", player->id);
-	if (!get_board(board, line) && !get_piece(piece/*, line*/))
+	if (!(board = get_board(board, line)) || !(piece = get_piece(piece/*, line*/))
+		|| !solve(board, piece, player))
 		free_game(board, piece, player);
 	/*i = 0;
 	if ((i = check_first_board(board) == -1))

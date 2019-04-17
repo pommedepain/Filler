@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/16 19:57:49 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/17 16:03:24 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int			game_malloc(t_game *game)
 	if (!(game->form = (char **)ft_memalloc(sizeof(char *) * (game->h + 1))))
 		return (-1);
 	game->form[game->h] = 0;
-	i = 0;
-	while (i < game->h)
+	i = -1;
+	while (++i < game->h)
 	{
 		if (!(game->form[i] = (char *)ft_memalloc(sizeof(char) * (game->w + 1))))
 		{
@@ -29,7 +29,6 @@ int			game_malloc(t_game *game)
 			game = NULL;
 			return (-1);
 		}
-		i++;
 	}
 	game->form[game->h - 1][game->w] = '\0';
 	return (0);
@@ -75,8 +74,8 @@ t_game		*game_loop(t_game *game)
 		return (NULL);
 	//ft_bzero(*tmp, (game->h + 1));
 	tmp[game->h] = 0;
-	i = 0;
-	while (i < game->h)
+	i = -1;
+	while (++i < game->h)
 	{
 		if (!(tmp[i] = (char *)malloc(sizeof(char) * (game->w + 1))))
 		{
@@ -84,7 +83,6 @@ t_game		*game_loop(t_game *game)
 			return (NULL);
 		}
 		ft_bzero(tmp[i], (game->w + 1));
-		i++;
 	}
 	tmp[game->h - 1][game->w] = '\0';
 	i = -1;
