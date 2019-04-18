@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/17 16:23:10 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:09:54 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef struct		s_game
 
 typedef struct		s_player
 {
-	char	*name;
 	int		nb;
+	int		y;
+	int		x;
 	char	id;
 	char	id_enmy;
 }					t_player;
@@ -65,7 +66,7 @@ t_game		*game_loop(t_game *game);
 /*
 ** solve.c
 */
-int			*find_enmy(t_game *board, t_player *player, int *enmy);
+int			*find_enmy(t_game *board, t_player *player, int *enmy, int beg);
 int			solve(t_game *board, t_game *piece, t_player *player);
 t_point		*choose_place_board(t_game *board, t_game *piece, t_player *player, t_point *point);
 

@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/17 16:03:24 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/18 18:15:34 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			get_size(t_game *game)
 	while (line[++i] && ft_isdigit(line[i]))
 		nb = nb * 10 + (line[i] - 48);
 	game->w = nb;
-	ft_printf("\nh = %d\nw = %d\n", game->h, game->w);
+	//ft_printf("\nh = %d\nw = %d\n", game->h, game->w);
 	if (game_malloc(game) == -1)
 	{
 		ft_tabdel(game->form);
@@ -88,7 +88,8 @@ t_game		*game_loop(t_game *game)
 	i = -1;
 	while (++i < game->h)
 	{
-		get_next_line(1, tmp);
+		if (get_next_line(1, tmp) != 1)
+			return (NULL);
 		if (ft_char_only(tmp[0], '.', '*') == 0)
 		{
 			if (check_count_board(game, tmp[0]) == 0)
@@ -105,7 +106,7 @@ t_game		*game_loop(t_game *game)
 			ft_strcpy(game->form[i], tmp[0]);
 		ft_strdel(tmp);
 	}
-	ft_print_words_tables(game->form);
+	//ft_print_words_tables(game->form);
 	ft_tabdel(tmp);
 	return (game);
 }
