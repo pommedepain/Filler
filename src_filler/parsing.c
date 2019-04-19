@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/18 18:15:34 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/19 18:14:00 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,36 @@ int			game_malloc(t_game *game)
 	return (0);
 }
 
-int			get_size(t_game *game)
+int			get_size(t_game *game, char **line)
 {
 	int i;
 	int nb;
-	char *line;
 
 	i = 0;
 	nb = 0;
-	line = NULL;
-	if (get_next_line(0, &line) != 1 || (!ft_strncmp(line, "Plateau ", 9) || !ft_strncmp(line, "Piece ", 7)))
-		return (-1);
-	while (line[i] && !ft_isdigit(line[i]))
+	while (!ft_strstr(*line, "Plateau ") && !ft_strstr(*line, "Piece "))
+	{
+		if (ft_strstr(*line, "Plateau ") && !ft_strstr(*line, "Piece "))
+			break ;
+		get_next_line(0, line);
+	}
+	while ((*line)[i] && !ft_isdigit((*line)[i]))
 		i++;
-	while (line[i] && ft_isdigit(line[i]))
-		nb = nb * 10 + (line[i++] - 48);
+	while ((*line)[i] && ft_isdigit((*line)[i]))
+		nb = nb * 10 + ((*line)[i++] - 48);
 	game->h = nb;
 	nb = 0;
-	while (line[++i] && ft_isdigit(line[i]))
-		nb = nb * 10 + (line[i] - 48);
+	while ((*line)[++i] && ft_isdigit((*line)[i]))
+		nb = nb * 10 + ((*line)[i] - 48);
 	game->w = nb;
 	//ft_printf("\nh = %d\nw = %d\n", game->h, game->w);
 	if (game_malloc(game) == -1)
 	{
 		ft_tabdel(game->form);
-		ft_strdel(&line);
+		ft_strdel(line);
 		return (-1);
 	}
-	ft_strdel(&line);
+	ft_strdel(line);
 	return (0);
 }
 
@@ -88,8 +90,16 @@ t_game		*game_loop(t_game *game)
 	i = -1;
 	while (++i < game->h)
 	{
-		if (get_next_line(1, tmp) != 1)
-			return (NULL);
+		printf("i = %d\ngame de h = %d\n", i, game->h);
+		if (i == (game->h - 1))
+		{
+			if (ft_char_only(tmp[0], '.', '*') == 1)
+				read(1, tmp[0], 1024);
+		}
+		else
+			if (get_next_line(1, tmp) != 1)
+				return (NULL);
+		printf("Yo 2\n");
 		if (ft_char_only(tmp[0], '.', '*') == 0)
 		{
 			if (check_count_board(game, tmp[0]) == 0)
@@ -108,5 +118,6 @@ t_game		*game_loop(t_game *game)
 	}
 	//ft_print_words_tables(game->form);
 	ft_tabdel(tmp);
+	printf("Yo 3\n");
 	return (game);
 }

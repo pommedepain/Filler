@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:40:59 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/17 15:36:28 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:10:43 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ int			check_count_board(t_game *board, char *str)
 	if (count != (board->w + 4))
 	{
 		ft_strdel(board->form);
-		//printf("Error = %d\n", count);
 		return (-1);
 	}
-	//printf("right count = %d\n", i);
 	return (0);
 }
 
@@ -58,8 +56,6 @@ int			check_first_board(t_game *board)
 		}
 	}
 	i = (board->h * board->w - 2);
-	//printf("\nright nb . = %d\n", i);
-	//printf("count = %d\ncount O = %d\ncount X = %d\n", count, count_O, count_X);
 	if (count_O != 1 || count_X != 1 || count != (board->h * board->w - 2))
 	{
 		free_game(board, board, (t_player *)board);
@@ -71,13 +67,13 @@ int			check_first_board(t_game *board)
 t_game		*get_board(t_game *board, char *line)
 {
 	board = init_game(board);
-	if(get_size(board) == -1)
+	if(get_size(board, &line) == -1)
 		return (NULL);
 	ft_strdel(&line);
 	// on jump la ligne 0123456789
 	get_next_line(0, &line);
 	ft_strdel(&line);
-	if (game_loop(board) == NULL)
-		return (NULL);
-	return (board);
+	/*if (game_loop(board) == NULL)
+		return (NULL);*/
+	return (game_loop(board));
 }

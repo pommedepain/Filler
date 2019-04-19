@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:59:37 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/18 18:15:14 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:25:24 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,11 +134,8 @@ t_player	*first_solving(t_game *board, t_player *player, t_game *piece, int *enm
 
 int			solve(t_game *board, t_game *piece, t_player *player)
 {
-	//t_point	*point;
 	int		*enmy;
 
-	//point = NULL;
-	//point = new_point(0, 0);
 	if (!(enmy = (int *)malloc(sizeof(int) * 2)))
 		return (-1);
 	enmy[0] = -1;
@@ -148,40 +145,3 @@ int			solve(t_game *board, t_game *piece, t_player *player)
 	player = first_solving(board, player, piece, enmy);
 	return (ft_printf("%d %d\n", player->y, player->x));
 }
-
-/*t_point		*choose_place_board(t_game *board, t_game *piece, t_player *player, t_point *point)
-{
-	int x;
-	int y;
-	int i;
-	int j;
-	int nb;
-
-	y = 0;
-	nb = 0;
-	i = 0;
-	while (board->h > y + point->y)
-	{
-		x = 0;
-		while (board->w > x + point->x)
-		{
-			printf("y = %d\nx = %d\n", y, x);
-			if (board->form[point->y + y][point->x + x] == player->id)
-			{
-				j = 0;
-				while (piece->form[i][j] != '*')
-					j++;
-				while (nb != piece->size)
-					if ((piece->form[y][x] == '*') && (board->form[point->y + y][point->x + x] == '.'))
-						nb++;
-				printf("y = %d\nx = %d\n", point->y, point->x);
-				return (point);
-			}
-			i++;
-			x++;
-		}
-		y++;
-	}
-	point = NULL;
-	return (point);
-}*/

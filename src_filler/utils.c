@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:35:47 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/18 18:10:02 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:25:39 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,4 @@ t_player	*init_player(t_player *player)
 	player->x = -1;
 	player->id = 0;
 	return (player);
-}
-
-t_point		*new_point(int x, int y)
-{
-	t_point *point;
-
-	point = (t_point *)malloc(sizeof(t_point));
-	point->x = 0;
-	point->y = 0;
-	point->x = x;
-	point->y = y;
-	return (point);
 }

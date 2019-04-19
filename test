@@ -5,7 +5,7 @@
 # -------------------------------------------- #
 launched players/hcao.filler
 $$$ exec p1 : [players/hcao.filler]
-launched players/superjeannot.filler
+launched players/psentilh.filler
 $$$ exec p2 : [players/psentilh.filler]
 Plateau 15 17:
 01234567890123456

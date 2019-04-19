@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/18 18:09:54 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/19 15:25:46 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ typedef struct		s_player
 	char	id_enmy;
 }					t_player;
 
-typedef struct		s_point
-{
-	int		x;
-	int		y;
-}					t_point;
-
 /*
 ** board.c
 */
@@ -53,14 +47,13 @@ t_game		*get_board(t_game *board, char *line);
 ** piece.c
 */
 void		get_size_sign(t_game *game);
-t_game		*parse_piece(t_game *piece);
-t_game		*get_piece(t_game *piece/*, char *line*/);
+t_game		*get_piece(t_game *piece, char *line);
 
 /*
 ** parsing.c
 */
 int			game_malloc(t_game *game);
-int			get_size(t_game *game);
+int			get_size(t_game *game, char **line);
 t_game		*game_loop(t_game *game);
 
 /*
@@ -68,7 +61,6 @@ t_game		*game_loop(t_game *game);
 */
 int			*find_enmy(t_game *board, t_player *player, int *enmy, int beg);
 int			solve(t_game *board, t_game *piece, t_player *player);
-t_point		*choose_place_board(t_game *board, t_game *piece, t_player *player, t_point *point);
 
 /*
 ** utils.c
@@ -77,6 +69,5 @@ void		free_bp(t_game *board, t_player *player);
 void		free_game(t_game *board, t_game *piece, t_player *player);
 t_game		*init_game(t_game *game);
 t_player	*init_player(t_player *player);
-t_point		*new_point(int x, int y);
 
 #endif

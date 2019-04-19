@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:46:41 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/17 16:01:56 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/19 14:13:19 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,15 @@ void		get_size_sign(t_game *game)
 	game->size = nb;
 }
 
-t_game		*parse_piece(t_game *piece)
+t_game		*get_piece(t_game *piece, char *line)
 {
-	get_size(piece);
-	if (game_loop(piece) == NULL)
+	piece = init_game(piece);
+	get_size(piece, &line);
+	/*if (game_loop(piece) == NULL)
 	{
 		free_game(piece, piece, (t_player *)piece);
 		return(NULL);
-	}
-	return (piece);
-}
-
-t_game		*get_piece(t_game *piece/*, char *line*/)
-{
-	piece = init_game(piece);
-	piece = parse_piece(piece);
-	get_size_sign(piece);
-	//ft_strdel(line);
-	return (piece);
+	}*/
+	//get_size_sign(piece);
+	return (game_loop(piece));
 }
