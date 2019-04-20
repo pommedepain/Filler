@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filler.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/19 15:25:46 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/20 16:30:10 by pommedepin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ typedef struct		s_player
 */
 int			check_count_board(t_game *board, char *str);
 int			check_first_board(t_game *board);
-t_game		*get_board(t_game *board, char *line);
+t_game		*get_board(t_game *board, char **line);
 
 /*
 ** piece.c
 */
 void		get_size_sign(t_game *game);
-t_game		*get_piece(t_game *piece, char *line);
+t_game		*get_piece(t_game *piece, char **line);
 
 /*
 ** parsing.c
 */
 int			game_malloc(t_game *game);
 int			get_size(t_game *game, char **line);
-t_game		*game_loop(t_game *game);
+static t_game		*game_loop(t_game *game, char **line);
 
 /*
 ** solve.c

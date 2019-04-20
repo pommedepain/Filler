@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/19 17:56:33 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/20 16:25:16 by pommedepin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_player		*begin_vm(t_player *player, char **line)
 			player->id_enmy = ((*line)[10] == '1' ? 'X' : 'O');
 			return (player);
 		}
-		get_next_line(0, line);
+		gnl(0, line);
 	}
 	return (NULL);
 }
@@ -42,12 +42,12 @@ int			main(void)
 	player = NULL;
 	piece = NULL;
 	player = init_player(player);
-	if (!get_next_line(0, &line) || !(player = begin_vm(player, &line)))
+	if (!gnl(0, &line) || !(player = begin_vm(player, &line)))
 		return (-1);
 	//printf("\nplayer id = %c\n", player->id);
 	while (1)
 	{
-		if (!(board = get_board(board, line)) || !(piece = get_piece(piece, line))
+		if (!(board = get_board(board, &line)) || !(piece = get_piece(piece, &line))
 		|| !solve(board, piece, player))
 			break ;
 		free_game(board, piece, player);

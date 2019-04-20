@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 16:28:14 by cajulien          #+#    #+#             */
-/*   Updated: 2019/04/15 17:05:11 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/20 15:04:40 by pommedepin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,17 @@ typedef struct		s_double
 	int					pow;
 	unsigned long long	f;
 }					t_double;
+
+typedef struct		s_read
+{
+	int				fd;
+	int				rr;
+	int				gnl;
+	char			*buff;
+	char			*content;
+	struct s_read	*head;
+	struct s_read	*next;
+}					t_read;
 
 /*
 ** ft_printf.c
@@ -330,5 +341,8 @@ char				*ft_ulltoa_base(unsigned long long n, int b_size,
 int					ft_word_count(char *s, char c);
 int					get_next_line(const int fd, char **line);
 char				*ft_strccpy(char *dst, const char *src, char c);
+int					gnl(int const fd, char **line);
+char				*ft_strchrsp(const char *s, int c);
+char				*ft_strjoinf(char *s1, char *s2, int opt);
 
 #endif
