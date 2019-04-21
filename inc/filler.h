@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   filler.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/20 16:30:10 by pommedepin       ###   ########.fr       */
+/*   Updated: 2019/04/21 19:00:06 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_game		*get_piece(t_game *piece, char **line);
 */
 int			game_malloc(t_game *game);
 int			get_size(t_game *game, char **line);
-static t_game		*game_loop(t_game *game, char **line);
+t_game		*game_loop(t_game *game, char **line)__attribute__((unused));
 
 /*
 ** solve.c
@@ -69,5 +69,8 @@ void		free_bp(t_game *board, t_player *player);
 void		free_game(t_game *board, t_game *piece, t_player *player);
 t_game		*init_game(t_game *game);
 t_player	*init_player(t_player *player);
+
+t_game			*get_board2(t_game *m, char **line);
+t_game				*get_block(t_game *b, char **line);
 
 #endif

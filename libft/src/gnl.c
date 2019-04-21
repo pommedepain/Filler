@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 14:56:54 by pommedepin        #+#    #+#             */
-/*   Updated: 2019/04/20 15:56:18 by pommedepin       ###   ########.fr       */
+/*   Updated: 2019/04/21 14:58:55 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,5 @@ int				gnl(int const fd, char **line)
 		ft_strclr(reader->buff);
 	}
 	ft_strdel(&(reader->buff));
-	printf("gnl passe\n");
 	return (handle_reader(&reader));
 }

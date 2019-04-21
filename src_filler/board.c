@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   board.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:40:59 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/20 16:27:09 by pommedepin       ###   ########.fr       */
+/*   Updated: 2019/04/21 18:59:55 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,10 @@ t_game		*get_board(t_game *board, char **line)
 {
 	if (!board)
 		board = init_game(board);
-	if(get_size(board, *line) == -1)
+	if(get_size(board, line) == -1)
 		return (NULL);
-	ft_strdel(line);
+	//ft_strdel(line);
 	// on jump la ligne 0123456789
 	gnl(0, line);
-	ft_strdel(line);
-	/*if (game_loop(board) == NULL)
-		return (NULL);*/
 	return (game_loop(board, line));
 }

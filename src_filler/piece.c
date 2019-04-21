@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piece.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:46:41 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/20 16:30:31 by pommedepin       ###   ########.fr       */
+/*   Updated: 2019/04/21 18:59:49 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		get_size_sign(t_game *game)
 t_game		*get_piece(t_game *piece, char **line)
 {
 	piece = init_game(piece);
-	get_size(piece, *line);
+	get_size(piece, line);
 	/*if (game_loop(piece) == NULL)
 	{
 		free_game(piece, piece, (t_player *)piece);
