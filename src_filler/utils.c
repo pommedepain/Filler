@@ -6,38 +6,37 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:35:47 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 14:34:17 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:59:33 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void		free_bp(t_game *board, t_player *player)
+t_game		*free_game(t_game *board)
 {
 	if (board)
 	{
-		ft_tabdel(board->form);
+		if (board->form)
+			ft_tabdel(board->form);
 		free(board);
 		board = NULL;
 	}
-	if (player)
-	{
-		free(player);
-		player = NULL;
-	}
+	return (NULL);
 }
 
-void		free_game(t_game *board, t_game *piece, t_player *player)
+void		free_prog(t_game *board, t_game *piece, t_player *player, char **line)
 {
 	if (board)
 	{
-		ft_tabdel(board->form);
+		if (board->form)
+			ft_tabdel(board->form);
 		free(board);
 		board = NULL;
 	}
 	if (piece)
 	{
-		ft_tabdel(piece->form);
+		if (piece->form)
+			ft_tabdel(piece->form);
 		free(piece);
 		piece = NULL;
 	}
@@ -45,6 +44,11 @@ void		free_game(t_game *board, t_game *piece, t_player *player)
 	{
 		free(player);
 		player = NULL;
+	}
+	if (line)
+	{
+		ft_strdel(line);
+		line = NULL;
 	}
 }
 

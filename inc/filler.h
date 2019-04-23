@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 14:36:35 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 18:59:47 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <ncurses.h>
 
 typedef struct		s_game
 {
@@ -65,8 +66,8 @@ int			solve(t_game *board, t_game *piece, t_player *player, int fd);
 /*
 ** utils.c
 */
-void		free_bp(t_game *board, t_player *player);
-void		free_game(t_game *board, t_game *piece, t_player *player);
+t_game		*free_game(t_game *board);
+void		free_prog(t_game *board, t_game *piece, t_player *player, char **line);
 t_game		*init_game(t_game *game);
 t_player	*init_player(t_player *player);
 

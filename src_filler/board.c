@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:40:59 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 14:37:36 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 15:35:38 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			check_count_board(t_game *board, char *str)
 
 	count = 0;
 	i = 0;
-	while(str[i++])
+	while (str[i++])
 		count++;
 	i = (board->w + 4);
 	if (count != (board->w + 4))

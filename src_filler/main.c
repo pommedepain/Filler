@@ -6,13 +6,13 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 14:37:29 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 19:03:44 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-t_player		*begin_vm(t_player *player, char **line, int fd)
+t_player	*begin_vm(t_player *player, char **line, int fd)
 {
 	if (!*line)
 		return (NULL);
@@ -47,22 +47,23 @@ int			main(void)
 	player = init_player(player);
 	if (!get_next_line(0, &line) || !(player = begin_vm(player, &line, fd)))
 	{
+		free_prog(NULL, NULL, player, &line);
 		dprintf(fd, "Main, fail begin_vm = %s\n", line);
 		return (-1);
 	}
 	dprintf(fd, "\nMain, success player = %c\n", player->id);
 	while (1)
 	{
-		if (!(board = get_board(board, &line, fd)) || !(piece = get_piece(piece, &line, fd))
-		|| !solve(board, piece, player, fd))
+		if (!(board = get_board(board, &line, fd))
+			|| !(piece = get_piece(piece, &line, fd))
+			|| !solve(board, piece, player, fd))
 		{
 			dprintf(fd, "while 1 break\n");
 			break ;
 		}
+		//free_game(NULL, piece, NULL, &line);
 	}
-	// fait buguer car deja player deja free ligne 36
-	free_game(board, piece, player);
-	ft_strdel(&line);
+	free_prog(board, piece, player, &line);
 	dprintf(fd, "\n\nEnd of program\n");
 	close(fd);
 	return (0);
