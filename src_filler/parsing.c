@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 16:23:14 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/21 18:52:40 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:37:47 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int			game_malloc(t_game *game)
 {
-	//int i;
+	int i;
 
 	if (!(game->form = (char **)ft_memalloc(sizeof(char *) * (game->h + 1))))
 		return (-1);
 	game->form[game->h] = 0;
-	/*i = -1;
+	i = -1;
 	while (++i < game->h)
 	{
 		if (!(game->form[i] = (char *)ft_memalloc(sizeof(char) * (game->w + 1))))
@@ -30,44 +30,39 @@ int			game_malloc(t_game *game)
 			return (-1);
 		}
 	}
-	game->form[game->h - 1][game->w] = '\0';*/
+	game->form[game->h - 1][game->w] = '\0';
 	return (0);
 }
 
-int			get_size(t_game *game, char **line)
+int			get_size(t_game *game, char *line, int fd)
 {
 	int i;
 	int nb;
 
 	i = 0;
 	nb = 0;
-	while (!ft_strstr(*line, "Plateau ") && !ft_strstr(*line, "Piece "))
-	{
-		if (ft_strstr(*line, "Plateau ") && !ft_strstr(*line, "Piece "))
-			break ;
-		gnl(0, line);
-	}
-	while ((*line)[i] && !ft_isdigit((*line)[i]))
+	while (line[i] && !ft_isdigit(line[i]))
 		i++;
-	while ((*line)[i] && ft_isdigit((*line)[i]))
-		nb = nb * 10 + ((*line)[i++] - 48);
+	while (line[i] && ft_isdigit(line[i]))
+		nb = nb * 10 + (line[i++] - 48);
 	game->h = nb;
 	nb = 0;
-	while ((*line)[++i] && ft_isdigit((*line)[i]))
-		nb = nb * 10 + ((*line)[i] - 48);
+	while (line[++i] && ft_isdigit(line[i]))
+		nb = nb * 10 + (line[i] - 48);
 	game->w = nb;
-	ft_printf("\nh = %d\nw = %d\n", game->h, game->w);
+	dprintf(fd, "\nh = %d\nw = %d\n\n", game->h, game->w);
 	if (game_malloc(game) == -1)
 	{
+		dprintf(fd, "game_malloc failed\n");
 		ft_tabdel(game->form);
-		ft_strdel(line);
+		ft_strdel(&line);
 		return (-1);
 	}
 	//ft_strdel(line);
 	return (0);
 }
 
-t_game		*game_loop(t_game *game, char **line)
+t_game		*game_loop(t_game *game, char **line, int fd)
 {
 	int i;
 	int j;
@@ -75,12 +70,13 @@ t_game		*game_loop(t_game *game, char **line)
 	i = -1;
 	while (++i < game->h)
 	{
-		if (!game->form[i])
-			if (!(game->form[i] = ft_strnew(game->w)))
-				return (NULL);
-		get_next_line(0, line);
-			//return (NULL);
-		if (ft_char_only(line[0], '.', '*') == 0)
+		if (get_next_line(0, line) != 1)
+		{
+			dprintf(fd, "game_loop, get_next_line failed\n");
+			return (NULL);
+		}
+		//dprintf(fd, "Game_loop, get_next_line %d = %s\n", i, (*line));
+		if (ft_char_only(*line, '.', '*') == 0)
 		{
 			j = 4;
 			while (j - 4 < game->w)
@@ -100,7 +96,10 @@ t_game		*game_loop(t_game *game, char **line)
 		}
 		//ft_strdel(line);
 	}
-	ft_print_words_tables(game->form);
+	i = -1;
+	while (++i < game->h)
+		dprintf(fd, "Game_loop, game->form %d =	%s\n", i, game->form[i]);
+	//dprintf(fd, "%s\n", ft_print_words_tables(game->form);
 	//ft_tabdel(line);
 	return (game);
 }

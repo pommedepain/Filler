@@ -6,13 +6,13 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:46:41 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/21 18:59:49 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:37:41 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void		get_size_sign(t_game *game)
+/*void		get_size_sign(t_game *game)
 {
 	int		nb;
 	int		i;
@@ -28,17 +28,21 @@ void		get_size_sign(t_game *game)
 				nb++;
 	}
 	game->size = nb;
-}
+}*/
 
-t_game		*get_piece(t_game *piece, char **line)
+t_game		*get_piece(t_game *piece, char **line, int fd)
 {
 	piece = init_game(piece);
-	get_size(piece, line);
-	/*if (game_loop(piece) == NULL)
+	if (!get_next_line(0, line) || !ft_strstr(*line, "Piece "))
 	{
-		free_game(piece, piece, (t_player *)piece);
-		return(NULL);
-	}*/
-	//get_size_sign(piece);
-	return (game_loop(piece, line));
+		dprintf(fd, "\nGet_piece, strstr failed : %s\n", *line);
+		return (NULL);
+	}
+	dprintf(fd, "\nGet_size, Piece =");
+	if (get_size(piece, *line, fd) == -1)
+	{
+		dprintf(fd, "Get_size failed\n");
+		return (NULL);
+	}
+	return (game_loop(piece, line, fd));
 }

@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:35:47 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/19 15:25:39 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/23 14:34:17 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_game		*init_game(t_game *game)
 		return (NULL);
 	game->h = 0;
 	game->w = 0;
-	game->size = 0;
+	//game->size = 0;
 	game->form = NULL;
 	return (game);
 }
@@ -63,7 +63,7 @@ t_player	*init_player(t_player *player)
 {
 	if (!(player = (t_player *)ft_memalloc(sizeof(t_player))))
 		return (NULL);
-	player->nb = 0;
+	//player->nb = 0;
 	player->y = -1;
 	player->x = -1;
 	player->id = 0;

@@ -6,14 +6,14 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 17:20:13 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/21 19:00:18 by psentilh         ###   ########.fr        #
+#    Updated: 2019/04/23 14:36:50 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = psentilh.filler
 
 CC = gcc
-DEBUG= yes
+DEBUG= no
 ifeq ($(DEBUG), yes)
 	CFLAGS= -Wall -Werror -Wextra -fsanitize=address -g3 -I$(INC_DIR)
 else
