@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 18:59:47 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:44:16 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_game		*get_piece(t_game *piece, char **line, int fd);
 /*
 ** parsing.c
 */
-int			game_malloc(t_game *game);
+int			game_malloc(t_game *game/*, int fd*/);
 int			get_size(t_game *game, char *line, int fd);
 t_game		*game_loop(t_game *game, char **line, int fd);
 
@@ -66,8 +66,10 @@ int			solve(t_game *board, t_game *piece, t_player *player, int fd);
 /*
 ** utils.c
 */
-t_game		*free_game(t_game *board);
-void		free_prog(t_game *board, t_game *piece, t_player *player, char **line);
+t_game		*free_game(t_game *board, int fd);
+t_player	*free_player(t_player *player, int fd);
+char		*free_line(char *line, int fd);
+void		free_prog(t_game **board, t_game **piece, t_player **player, char **line, int fd);
 t_game		*init_game(t_game *game);
 t_player	*init_player(t_player *player);
 

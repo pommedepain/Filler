@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 19:03:44 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:46:55 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ int			main(void)
 	if (!(fd = open("fichier_test", O_WRONLY | O_CREAT, 0644)))
 		return (-1);
 	dprintf(fd, "test\n");
-	player = init_player(player);
+	if (!(player = init_player(player)))
+		free_player(player, fd);
 	if (!get_next_line(0, &line) || !(player = begin_vm(player, &line, fd)))
 	{
-		free_prog(NULL, NULL, player, &line);
+		free_prog(NULL, NULL, &player, &line, fd);
 		dprintf(fd, "Main, fail begin_vm = %s\n", line);
 		return (-1);
 	}
+	ft_strdel(&line);
 	dprintf(fd, "\nMain, success player = %c\n", player->id);
 	while (1)
 	{
@@ -61,9 +63,9 @@ int			main(void)
 			dprintf(fd, "while 1 break\n");
 			break ;
 		}
-		//free_game(NULL, piece, NULL, &line);
+		free_prog(&board, &piece, NULL, &line, fd);
 	}
-	free_prog(board, piece, player, &line);
+	free_prog(&board, &piece, &player, &line, fd);
 	dprintf(fd, "\n\nEnd of program\n");
 	close(fd);
 	return (0);

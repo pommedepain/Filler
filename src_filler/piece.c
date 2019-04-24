@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:46:41 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 14:37:41 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:43:13 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 
 t_game		*get_piece(t_game *piece, char **line, int fd)
 {
-	piece = init_game(piece);
+	if (!(piece = init_game(piece)))
+		return (NULL);
 	if (!get_next_line(0, line) || !ft_strstr(*line, "Piece "))
 	{
 		dprintf(fd, "\nGet_piece, strstr failed : %s\n", *line);

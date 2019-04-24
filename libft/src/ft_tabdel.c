@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 15:47:45 by psentilh          #+#    #+#             */
-/*   Updated: 2018/12/04 16:30:57 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:23:18 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	ft_tabdel(char **as)
 	i = 0;
 	if (as)
 	{
-		while (i)
-			free(as[i--]);
-		free(*as);
-		*as = NULL;
+		while (as[i])
+			free(as[i++]);
+		free(as);
 	}
+	//free(as);
 }
