@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   viewer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/23 15:25:44 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/23 15:35:01 by psentilh         ###   ########.fr       */
+/*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
+/*   Updated: 2019/04/25 15:52:43 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <curses.h>
+#include <ncurses.h>
 
-int		main(void)
+int			main(void)
 {
-	initsrc();
-	raw();
-	printw("Hello World !");
+	WINDOW *ptr_win;
+
+	initscr();
+	cbreak();
+	ptr_win = newwin(20, 30, 10, 40);
+	refresh();
+	start_color();
+	init_pair(1, 2, 0);
+	wborder(ptr_win, '|', '|', '-', '-', '+', '+', '+', '+');
+	wattron(ptr_win, COLOR_PAIR(1));
+	wattron(ptr_win, A_BOLD);
+	mvwprintw(ptr_win, 1, 1, "This is my box !");
+	wrefresh(ptr_win);
+	wattroff(ptr_win, COLOR_PAIR(1));
+	wattroff(ptr_win, A_BOLD);
 	getch();
 	endwin();
 	return (0);
