@@ -6,11 +6,11 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/25 16:03:30 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:55:40 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ncurses.h>
+#include "filler.h"
 
 int			main(void)
 {

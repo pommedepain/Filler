@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/24 16:44:16 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/25 16:46:28 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,26 @@ typedef struct		s_game
 	char	**form;
 	int		h;
 	int		w;
-	//int		size;
 }					t_game;
 
 typedef struct		s_player
 {
-	//int		nb;
 	int		y;
 	int		x;
 	char	id;
-	//char	id_enmy;
 }					t_player;
+
+typedef struct		s_viewer
+{
+	int		h;
+	int		w;
+	char	player;
+	char	enmy;
+}					t_viewer;
+
+/*
+**							FILLER:
+*/
 
 /*
 ** board.c
@@ -72,5 +81,9 @@ char		*free_line(char *line, int fd);
 void		free_prog(t_game **board, t_game **piece, t_player **player, char **line, int fd);
 t_game		*init_game(t_game *game);
 t_player	*init_player(t_player *player);
+
+/*
+**						VIEWER:
+*/
 
 #endif
