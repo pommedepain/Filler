@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/25 16:46:28 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/26 14:34:07 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ typedef struct		s_player
 
 typedef struct		s_viewer
 {
+	char	**visual;
 	int		h;
 	int		w;
-	char	player;
-	char	enmy;
+	char	p1;
+	char	p2;
 }					t_viewer;
 
 /*
@@ -85,5 +86,11 @@ t_player	*init_player(t_player *player);
 /*
 **						VIEWER:
 */
+
+/*
+** parsing.c
+*/
+t_viewer	*get_visual(t_viewer *viewer, char **line, int fd);
+t_viewer	*free_viewer(t_viewer *viewer, int fd);
 
 #endif

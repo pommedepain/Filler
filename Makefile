@@ -6,7 +6,7 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 17:20:13 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/25 19:59:55 by psentilh         ###   ########.fr        #
+#    Updated: 2019/04/26 14:02:18 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC_FILLER	=	filler/main.c\
 				filler/piece.c\
 				filler/board.c
 
-SRC_VIEWER	=	viewer/viewer.c
+SRC_VIEWER	=	viewer/viewer.c\
+				viewer/parsing.c\
 
 SRC_ALL		=	filler/main.c\
 				filler/parsing.c\
@@ -39,6 +40,7 @@ SRC_ALL		=	filler/main.c\
 				filler/piece.c\
 				filler/board.c\
 				viewer/viewer.c\
+				viewer/parsing.c\
 
 SRCS_ALL	=	$(addprefix $(SRC_PATH), $(SRC_ALL))
 SRCS_F		=	$(addprefix $(SRC_PATH), $(SRC_FILLER))
