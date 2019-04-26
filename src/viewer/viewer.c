@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/26 15:34:37 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/26 20:16:16 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_viewer	*init_viewer(t_viewer *viewer)
 	viewer->w = -1;
 	viewer->p1 = 0;
 	viewer->p2 = 0;
+	viewer->over = -1;
 	return (viewer);
 }
 
@@ -45,6 +46,7 @@ t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
 	}
 	while (!ft_strstr(*line, "$$$ exec p") /*&& !ft_strstr(*line, ".filler")*/)
 	{
+		ft_strdel(line);
 		get_next_line(0, line);
 		//dprintf(fd, "line = %s\n", *line);
 		//dprintf(fd, "char[10] = %c\n", (*line)[10]);
@@ -89,6 +91,8 @@ int			main(void)
 			dprintf(fd, "fail get_visual\n");
 			break ;
 		}
+		if (viewer->over == 1)
+			break ;
 		ft_strdel(&line);
 	}
 	/*initscr();
@@ -106,6 +110,7 @@ int			main(void)
 	wattroff(ptr_win, A_BOLD);
 	getch();
 	endwin();*/
+	ft_strdel(&line);
 	free_viewer(viewer, fd);
 	dprintf(fd, "End of viewer\n");
 	return (0);

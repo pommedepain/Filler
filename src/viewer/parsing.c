@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:27:44 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/26 15:33:16 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/26 20:20:57 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int			get_size_v(t_viewer *viewer, char *line, int fd)
 	if (viewer_malloc(viewer) == -1)
 	{
 		dprintf(fd, "viewer_malloc failed\n");
+		ft_strdel(&line);
+		free_viewer(viewer, fd);
 		return (-1);
 	}
 	ft_strdel(&line);
@@ -88,7 +90,7 @@ t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
 	return (viewer);
 }
 
-int				find_board(t_viewer *viewer, char **line, int fd)
+int			find_board(t_viewer *viewer, char **line, int fd)
 {
 	if (!*line)
 	{
@@ -97,20 +99,32 @@ int				find_board(t_viewer *viewer, char **line, int fd)
 	}
 	while (!ft_strstr(*line, "Plateau "))
 	{
+		ft_strdel(line);
 		get_next_line(0, line);
-		//dprintf(fd, "line = %s\n", *line);
+		dprintf(fd, "line = %s\n", *line);
 		if (ft_strstr(*line, "Plateau "))
 		{
 			//dprintf(fd, "get_visual, Found \"Plateau \"");
 			break ;
 		}
+		if (ft_strstr(*line, "fin: "))
+		{
+			viewer->over = 1;
+			ft_strdel(line);
+			dprintf(fd, "GAME OVER\n");
+			return (1);
+		}
+		//ft_strdel(line);
 	}
 	dprintf(fd, "\nGet_size, Board =");
 	if (get_size_v(viewer, *line, fd) == -1)
 	{
+		ft_strdel(line);
+		free_viewer(viewer, fd);
 		dprintf(fd, "Get_size, fail = %s\n", *line);
 		return (-1);
 	}
+	//ft_strdel(line);
 	if (!get_next_line(0, line))
 		return (-1);
 	dprintf(fd, "get_visual line we jump = %s\n\n", (*line));
@@ -118,29 +132,28 @@ int				find_board(t_viewer *viewer, char **line, int fd)
 	return (0);
 }
 
-
 t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 {
+	int ret;
+
+	ret = 0;
 	if (!get_next_line(0, line))
 	{
 		dprintf(fd, "get_visual, gnl failed\n");
 		return (NULL);
 	}
-	if (find_board(viewer, line, fd) == -1)
+	if ((ret = find_board(viewer, line, fd)) == -1)
 	{
-		dprintf(fd, "find_board failed :\n");
-		while (!ft_strstr(*line, "fin: "))
-		{
-			dprintf(fd, "line = %s\n", *line);
-			get_next_line(0, line);
-			if (ft_strstr(*line, "fin: "))
-			{
-				dprintf(fd, "GAME OVER\n");
-				break ;
-			}
-		}
+		if (*line)
+			ft_strdel(line);
+		free_viewer(viewer, fd);
+		return (NULL);
+	}
+	else if (ret == 1)
+	{
+		ft_strdel(line);
 		return (viewer);
 	}
-	//ft_strdel(line);
+	ft_strdel(line);
 	return (viewer_loop(viewer, line, fd));
 }

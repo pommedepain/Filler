@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/26 14:34:07 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/26 18:23:31 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct		s_viewer
 	int		w;
 	char	p1;
 	char	p2;
+	int		over;
 }					t_viewer;
 
 /*
