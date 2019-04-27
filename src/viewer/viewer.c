@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/26 20:16:16 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/27 18:34:48 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,17 @@ t_viewer	*init_viewer(t_viewer *viewer)
 
 t_viewer	*free_viewer(t_viewer *viewer, int fd)
 {
+	int i;
+
 	if (viewer)
 	{
 		if (viewer->visual)
-			ft_tabdel(viewer->visual);
+		{
+			i = -1;
+			//ft_tabdel(viewer->visual);
+			while (viewer->visual[++i])
+				free(viewer->visual[i]);
+		}
 		free(viewer);
 		viewer = NULL;
 		dprintf(fd, "free viewer\n");
@@ -44,7 +51,7 @@ t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
 		dprintf(fd, "begin_vm, line == NULL\n");
 		return (NULL);
 	}
-	while (!ft_strstr(*line, "$$$ exec p") /*&& !ft_strstr(*line, ".filler")*/)
+	while (!ft_strstr(*line, "$$$ exec p"))
 	{
 		ft_strdel(line);
 		get_next_line(0, line);
@@ -58,6 +65,7 @@ t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
 		}
 	}
 	dprintf(fd, "begin_vm, if doesn't work\n");
+	ft_strdel(line);
 	return (NULL);
 }
 
@@ -79,10 +87,13 @@ int			main(void)
 	}
 	if (get_next_line(0, &line) != 1 || !(viewer = begin_vm(viewer, &line, fd)))
 	{
+		ft_strdel(&line);
 		dprintf(fd, "Fail gnl ou parse player\n");
 		return (-1);
 	}
+	dprintf(fd, "main 1 line = %s\n", line);
 	ft_strdel(&line);
+	dprintf(fd, "main 2 line = %s\n", line);
 	dprintf(fd, "\nMain, success	p1 = %c\n				p2 = %c\n", viewer->p1, viewer->p2);
 	while (1)
 	{
@@ -93,6 +104,7 @@ int			main(void)
 		}
 		if (viewer->over == 1)
 			break ;
+		//ft_tabdel(viewer->visual);
 		ft_strdel(&line);
 	}
 	/*initscr();
@@ -110,6 +122,7 @@ int			main(void)
 	wattroff(ptr_win, A_BOLD);
 	getch();
 	endwin();*/
+	dprintf(fd, "main 3 line = %s\n", line);
 	ft_strdel(&line);
 	free_viewer(viewer, fd);
 	dprintf(fd, "End of viewer\n");

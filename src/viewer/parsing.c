@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:27:44 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/26 20:20:57 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/27 18:12:47 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
 	i = -1;
 	while (++i < viewer->h)
 	{
+		ft_strdel(line);
 		if (get_next_line(0, line) != 1)
 		{
 			dprintf(fd, "viewer_loop, get_next_line failed\n");
@@ -82,11 +83,12 @@ t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
 				j++;
 			}
 		}
-		ft_strdel(line);
 	}
 	i = -1;
 	while (++i < viewer->h)
 		dprintf(fd, "viewer_loop, viewer->visual %d	=	%s\n", i, viewer->visual[i]);
+	ft_tabdel(viewer->visual);
+	viewer->visual = NULL;
 	return (viewer);
 }
 
@@ -124,11 +126,10 @@ int			find_board(t_viewer *viewer, char **line, int fd)
 		dprintf(fd, "Get_size, fail = %s\n", *line);
 		return (-1);
 	}
-	//ft_strdel(line);
 	if (!get_next_line(0, line))
 		return (-1);
 	dprintf(fd, "get_visual line we jump = %s\n\n", (*line));
-	//ft_strdel(line);
+	ft_strdel(line);
 	return (0);
 }
 
@@ -137,6 +138,7 @@ t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 	int ret;
 
 	ret = 0;
+	ft_strdel(line);
 	if (!get_next_line(0, line))
 	{
 		dprintf(fd, "get_visual, gnl failed\n");
@@ -149,9 +151,10 @@ t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 		free_viewer(viewer, fd);
 		return (NULL);
 	}
-	else if (ret == 1)
+	if (ret == 1)
 	{
 		ft_strdel(line);
+		dprintf(fd, "get_visual, line = %s\n", *line);
 		return (viewer);
 	}
 	ft_strdel(line);

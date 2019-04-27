@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 19:34:40 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/19 18:03:39 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/27 18:36:02 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,20 @@ int		check_input(int fd, char **line, char *lst[_FD_MAX_])
 
 int		checkend(int ret, int fd, char *lst[_FD_MAX_], char **line)
 {
-    if (ret == -1)
+	if (ret == -1)
 	{
-    	ft_strdel(line);
-        ft_strdel(&lst[fd]);
-        return (-1);
-    }
-    ft_strdel(line);
-    ft_strdel(&lst[fd]);
-    return (0);
+		ft_strdel(line);
+		ft_strdel(&lst[fd]);
+		return (-1);
+	}
+	if (lst[fd][0])
+	{
+		ft_strclr(lst[fd]);
+		return (1);
+	}
+	ft_strdel(line);
+	ft_strdel(&lst[fd]);
+	return (0);
 }
 
 int		process(int fd, int ret, char **line, char *lst[_FD_MAX_])
