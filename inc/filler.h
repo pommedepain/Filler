@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/26 18:23:31 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:02:46 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ t_player	*init_player(t_player *player);
 */
 t_viewer	*get_visual(t_viewer *viewer, char **line, int fd);
 t_viewer	*free_viewer(t_viewer *viewer, int fd);
+WINDOW		*start_viewer(t_viewer *viewer, int fd);
+int			print_viewer(t_viewer *viewer, WINDOW *ptr_win, int fd);
 
 #endif

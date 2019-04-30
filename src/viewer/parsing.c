@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:27:44 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/30 14:55:54 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/30 17:05:52 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
 	i = -1;
 	while (++i < viewer->h)
 		dprintf(fd, "viewer_loop, viewer->visual %d	=	%s\n", i, viewer->visual[i]);
-	ft_tabdel(viewer->visual);
-	viewer->visual = NULL;
 	return (viewer);
 }
 
@@ -130,19 +128,32 @@ int			find_board(t_viewer *viewer, char **line, int fd)
 
 t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 {
-	int ret;
+	int		ret;
+	WINDOW	*ptr;
 
 	ret = 0;
+	ptr = NULL;
 	if (!get_next_line(0, line))
 	{
 		dprintf(fd, "get_visual, gnl failed\n");
 		return (NULL);
+	}
+	if (viewer->visual != NULL)
+	{
+		print_viewer(viewer, ptr, fd);
+		ft_tabdel(viewer->visual);
+		viewer->visual = NULL;
 	}
 	if ((ret = find_board(viewer, line, fd)) == -1)
 	{
 		if (*line)
 			ft_strdel(line);
 		return (NULL);
+	}
+	if (viewer->over == -1)
+	{
+		ptr = start_viewer(viewer, fd);
+		viewer->over = 2;
 	}
 	if (ret == 1)
 	{

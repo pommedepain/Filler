@@ -5,124 +5,106 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/30 15:01:56 by psentilh         ###   ########.fr       */
+/*   Created: 2019/04/30 15:11:58 by psentilh          #+#    #+#             */
+/*   Updated: 2019/04/30 17:11:04 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-t_viewer	*init_viewer(t_viewer *viewer)
+// Tenter de starter le viewer avec l'initialisation de la map, comme ça le fond reste fixe comme le cadre; puis entre chaque map, parser uniquement les X et O
+// == pas de saut d'image sur la map, uniquement sur les pieces mais ne se verra pas
+
+int			print_viewer(t_viewer *viewer, WINDOW *ptr_win, int fd)
 {
-	if (!(viewer = (t_viewer *)ft_memalloc(sizeof(t_viewer))))
-		return (NULL);
-	viewer->h = -1;
-	viewer->w = -1;
-	viewer->p1 = 0;
-	viewer->p2 = 0;
-	viewer->over = -1;
-	return (viewer);
-}
-
-t_viewer	*free_viewer(t_viewer *viewer, int fd)
-{
-	int i;
-
-	if (viewer)
-	{
-		if (viewer->visual)
-		{
-			i = -1;
-			//ft_tabdel(viewer->visual);
-			while (viewer->visual[++i])
-				free(viewer->visual[i]);
-		}
-		free(viewer);
-		viewer = NULL;
-		dprintf(fd, "free viewer\n");
-	}
-	return (viewer);
-}
-
-t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
-{
-	if (!*line)
-	{
-		dprintf(fd, "begin_vm, line == NULL\n");
-		return (NULL);
-	}
-	while (!ft_strstr(*line, "$$$ exec p"))
-	{
-		ft_strdel(line);
-		get_next_line(0, line);
-		//dprintf(fd, "line = %s\n", *line);
-		//dprintf(fd, "char[10] = %c\n", (*line)[10]);
-		if ((*line)[10] == '1')
-		{
-			viewer->p1 = ((*line)[10] == '1' ? 'O' : 'X');
-			viewer->p2 = ((*line)[10] == '1' ? 'X' : 'O');
-			return (viewer);
-		}
-	}
-	dprintf(fd, "begin_vm, if doesn't work\n");
-	ft_strdel(line);
-	return (NULL);
-}
-
-int			main(void)
-{
-	//WINDOW		*ptr_win;
-	t_viewer	*viewer;
-	int			fd;
-	char		*line;
-
-	viewer = NULL;
-	line = NULL;
-	if (!(fd = open("test_viewer", O_WRONLY | O_CREAT, 0644)))
-		return (-1);
-	dprintf(fd, "test\n");
-	if (!(viewer = init_viewer(viewer)))
-	{
-		dprintf(fd, "FAIL init_viewer\n");
-		return (-1);
-	}
-	if (get_next_line(0, &line) != 1 || !(viewer = begin_vm(viewer, &line, fd)))
-	{
-		dprintf(fd, "Fail gnl ou parse player\n");
-		return (-1);
-	}
-	ft_strdel(&line);
-	dprintf(fd, "\nMain, success	p1 = %c\n				p2 = %c\n", viewer->p1, viewer->p2);
-	while (1)
-	{
-		if (!(viewer = get_visual(viewer, &line, fd)))
-		{
-			dprintf(fd, "fail get_visual\n");
-			break ;
-		}
-		if (viewer->over == 1)
-			break ;
-		//ft_tabdel(viewer->visual);
-		ft_strdel(&line);
-	}
-	/*initscr();
-	cbreak();
-	ptr_win = newwin(20, 30, 10, 40);
-	refresh();
+	int			i;
+	int			j;
+	int			h;
+	int			w;
+	
 	start_color();
 	init_pair(1, 2, 0);
-	wborder(ptr_win, '|', '|', '-', '-', '+', '+', '+', '+');
-	wattron(ptr_win, COLOR_PAIR(1));
+	init_pair(2, 1, 0);
+	init_pair(3, 7, 0);
 	wattron(ptr_win, A_BOLD);
-	mvwprintw(ptr_win, 1, 1, "This is my box !");
-	wrefresh(ptr_win);
+	h = 1;
+	dprintf(fd, "\nPRINT VIEWER:\n");
+	i = 0;
+	while (viewer->visual[i])
+	{
+		j = 0;
+		w = 1;
+		while (viewer->visual[i][j])
+		{
+			if (viewer->visual[i][j] == 'o' || viewer->visual[i][j] == 'O')
+			{
+				wattron(ptr_win, COLOR_PAIR(1));
+				mvwaddch(ptr_win, h, w, viewer->visual[i][j]);
+				wrefresh(ptr_win);
+				dprintf(fd, "%c", viewer->visual[i][j]);
+			}
+			if (viewer->visual[i][j] == 'x' || viewer->visual[i][j] == 'X')
+			{
+				wattron(ptr_win, COLOR_PAIR(2));
+				mvwaddch(ptr_win, h, w, viewer->visual[i][j]);
+				wrefresh(ptr_win);
+				dprintf(fd, "%c", viewer->visual[i][j]);
+			}
+			/*else if (viewer->visual[i][j] == '.')
+			{
+				wattron(ptr_win, COLOR_PAIR(3));
+				mvwaddch(ptr_win, h, w, viewer->visual[i][j]);
+				wrefresh(ptr_win);
+				dprintf(fd, "%c", viewer->visual[i][j]);
+			}*/
+			j++;
+			w++;
+		}
+		dprintf(fd, "\n");
+		i++;
+		h++;
+	}
 	wattroff(ptr_win, COLOR_PAIR(1));
 	wattroff(ptr_win, A_BOLD);
 	getch();
-	endwin();*/
-	dprintf(fd, "main 3 line = %s\n", line);
-	ft_strdel(&line);
-	free_viewer(viewer, fd);
-	dprintf(fd, "End of viewer\n");
 	return (0);
+}
+
+WINDOW		*start_viewer(t_viewer *viewer, int fd)
+{
+	WINDOW		*ptr_win;
+	int			h;
+	int			w;
+
+	initscr();
+	cbreak();
+	ptr_win = newwin(viewer->h + 2, viewer->w + 2, 1, 1);
+	refresh();
+	start_color();
+	init_pair(3, 7, 0);
+	wborder(ptr_win, '|', '|', '-', '-', '+', '+', '+', '+');
+	wattron(ptr_win, COLOR_PAIR(1));
+	//wattron(ptr_win, A_BOLD);
+	h = 1;
+	dprintf(fd, "\nSTART VIEWER:\n");
+	while (h < viewer->h + 1)
+	{
+		w = 1;
+		while (w < viewer->w + 1)
+		{
+			wattron(ptr_win, COLOR_PAIR(3));
+			mvwaddch(ptr_win, h, w, '.');
+			wrefresh(ptr_win);
+			dprintf(fd, "%c", '.');
+			w++;
+		}
+		dprintf(fd, "\n");
+		h++;
+	}
+	dprintf(fd, "\n\n");
+	wattroff(ptr_win, COLOR_PAIR(1));
+	wattroff(ptr_win, A_BOLD);
+	getch();
+	endwin();
+	return (ptr_win);
 }
