@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/27 18:34:48 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/04/30 15:01:56 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			main(void)
 	char		*line;
 
 	viewer = NULL;
+	line = NULL;
 	if (!(fd = open("test_viewer", O_WRONLY | O_CREAT, 0644)))
 		return (-1);
 	dprintf(fd, "test\n");
@@ -87,13 +88,10 @@ int			main(void)
 	}
 	if (get_next_line(0, &line) != 1 || !(viewer = begin_vm(viewer, &line, fd)))
 	{
-		ft_strdel(&line);
 		dprintf(fd, "Fail gnl ou parse player\n");
 		return (-1);
 	}
-	dprintf(fd, "main 1 line = %s\n", line);
 	ft_strdel(&line);
-	dprintf(fd, "main 2 line = %s\n", line);
 	dprintf(fd, "\nMain, success	p1 = %c\n				p2 = %c\n", viewer->p1, viewer->p2);
 	while (1)
 	{
