@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/01 11:02:47 by pommedepin       ###   ########.fr       */
+/*   Updated: 2019/05/01 17:32:18 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_viewer	*init_viewer(t_viewer *viewer)
 	viewer->p1 = 0;
 	viewer->p2 = 0;
 	viewer->over = -1;
+	viewer->ptr = NULL;
 	return (viewer);
 }
 
@@ -102,6 +103,7 @@ int			main(void)
 			break ;
 		ft_strdel(&line);
 	}
+	end_viewer(viewer, fd);
 	dprintf(fd, "main 3 line = %s\n", line);
 	ft_strdel(&line);
 	free_viewer(viewer, fd);

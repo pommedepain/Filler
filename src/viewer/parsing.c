@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:27:44 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/30 17:05:52 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/01 14:54:48 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,8 @@ int			find_board(t_viewer *viewer, char **line, int fd)
 t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 {
 	int		ret;
-	WINDOW	*ptr;
 
 	ret = 0;
-	ptr = NULL;
 	if (!get_next_line(0, line))
 	{
 		dprintf(fd, "get_visual, gnl failed\n");
@@ -140,7 +138,7 @@ t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 	}
 	if (viewer->visual != NULL)
 	{
-		print_viewer(viewer, ptr, fd);
+		print_viewer(viewer, fd);
 		ft_tabdel(viewer->visual);
 		viewer->visual = NULL;
 	}
@@ -152,7 +150,7 @@ t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 	}
 	if (viewer->over == -1)
 	{
-		ptr = start_viewer(viewer, fd);
+		viewer->ptr = start_viewer(viewer, fd);
 		viewer->over = 2;
 	}
 	if (ret == 1)

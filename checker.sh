@@ -59,17 +59,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}Abanlin vs $champion on map01: $wins/$limit${NC}"; else echo "${GREEN}Abanlin vs $champion on map01: $wins/$limit${NC}"; fi
 
     # Testing ABANLIN on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/abanlin.filler -p2 ./$login.filler > trace
-    #     enemy=`grep "== O" trace | cut -d: -f2`
-    #     yours=`grep "== X" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}Abanlin vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Abanlin vs $champion on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/abanlin.filler -p2 ./$login.filler > trace
+         enemy=`grep "== O" trace | cut -d: -f2`
+         yours=`grep "== X" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}Abanlin vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Abanlin vs $champion on map02: $wins/$limit${NC}"; fi
 
     # Testing ABANLIN on map00
     while [[ $i -lt $limit ]]
@@ -96,17 +96,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Abanlin on map01: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Abanlin on map01: $wins/$limit${NC}"; fi
 
     # Testing ABANLIN on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/abanlin.filler -p1 ./$login.filler > trace
-    #     enemy=`grep "== X" trace | cut -d: -f2`
-    #     yours=`grep "== O" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Abanlin on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Abanlin on map02: $wins/$limit${NC}";
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/abanlin.filler -p1 ./$login.filler > trace
+         enemy=`grep "== X" trace | cut -d: -f2`
+         yours=`grep "== O" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Abanlin on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Abanlin on map02: $wins/$limit${NC}"; fi
 
 # ----------------------------------------------  CARLI  ------------------------------------------------------------
 
@@ -135,17 +135,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}Carli vs $champion on map01: $wins/$limit${NC}"; else echo "${GREEN}Carli vs $champion on map01: $wins/$limit${NC}"; fi
 
     # Testing CARLI on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/carli.filler -p2 ./$login.filler > trace
-    #     enemy=`grep "== O" trace | cut -d: -f2`
-    #     yours=`grep "== X" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}Carli vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Carli vs $champion on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/carli.filler -p2 ./$login.filler > trace
+         enemy=`grep "== O" trace | cut -d: -f2`
+         yours=`grep "== X" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}Carli vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Carli vs $champion on map02: $wins/$limit${NC}"; fi
 
     # Testing CARLI on map00
     while [[ $i -lt $limit ]]
@@ -172,17 +172,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Carli on map01: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Carli on map01: $wins/$limit${NC}"; fi
 
     # Testing CARLI on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/carli.filler -p1 ./$login.filler > trace
-    #     enemy=`grep "== X" trace | cut -d: -f2`
-    #     yours=`grep "== O" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Carli on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Carli on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/carli.filler -p1 ./$login.filler > trace
+         enemy=`grep "== X" trace | cut -d: -f2`
+         yours=`grep "== O" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Carli on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Carli on map02: $wins/$limit${NC}"; fi
 
 # ----------------------------------------------  CHAMPELY  ------------------------------------------------------------
 
@@ -211,17 +211,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}Champely vs $champion on map01: $wins/$limit${NC}"; else echo "${GREEN}Champely vs $champion on map01: $wins/$limit${NC}"; fi
 
     # Testing CHAMPELY on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/champely.filler -p2 ./$login.filler > trace
-    #     enemy=`grep "== O" trace | cut -d: -f2`
-    #     yours=`grep "== X" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}Champely vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Champely vs $champion on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/champely.filler -p2 ./$login.filler > trace
+         enemy=`grep "== O" trace | cut -d: -f2`
+         yours=`grep "== X" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}Champely vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Champely vs $champion on map02: $wins/$limit${NC}"; fi
 
     # Testing CHAMPELY on map00
     while [[ $i -lt $limit ]]
@@ -248,17 +248,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Champely on map01: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Champely on map01: $wins/$limit${NC}"; fi
 
     # Testing CHAMPELY on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/champely.filler -p1 ./$login.filler > trace
-    #     enemy=`grep "== X" trace | cut -d: -f2`
-    #     yours=`grep "== O" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Champely on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Champely on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/champely.filler -p1 ./$login.filler > trace
+         enemy=`grep "== X" trace | cut -d: -f2`
+         yours=`grep "== O" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Champely on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Champely on map02: $wins/$limit${NC}"; fi
 
 
 # ----------------------------------------------  GRATI  ------------------------------------------------------------
@@ -288,17 +288,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}Grati vs $champion on map01: $wins/$limit${NC}"; else echo "${GREEN}Grati vs $champion on map01: $wins/$limit${NC}"; fi
 
     # Testing GRATI on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/grati.filler -p2 ./$login.filler > trace
-    #     enemy=`grep "== O" trace | cut -d: -f2`
-    #     yours=`grep "== X" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}Grati vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Grati vs $champion on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/grati.filler -p2 ./$login.filler > trace
+         enemy=`grep "== O" trace | cut -d: -f2`
+         yours=`grep "== X" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}Grati vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Grati vs $champion on map02: $wins/$limit${NC}"; fi
 
     # Testing GRATI on map00
     while [[ $i -lt $limit ]]
@@ -325,17 +325,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Grati on map01: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Grati on map01: $wins/$limit${NC}"; fi
 
     # Testing GRATI on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/grati.filler -p1 ./$login.filler > trace
-    #     enemy=`grep "== X" trace | cut -d: -f2`
-    #     yours=`grep "== O" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Grati on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Grati on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/grati.filler -p1 ./$login.filler > trace
+         enemy=`grep "== X" trace | cut -d: -f2`
+         yours=`grep "== O" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Grati on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Grati on map02: $wins/$limit${NC}"; fi
 
 # ----------------------------------------------  HCAO  ------------------------------------------------------------
 
@@ -364,17 +364,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}Hcao vs $champion on map01: $wins/$limit${NC}"; else echo "${GREEN}Hcao vs $champion on map01: $wins/$limit${NC}"; fi
 
     # Testing HCAO on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/hcao.filler -p2 ./$login.filler > trace
-    #     enemy=`grep "== O" trace | cut -d: -f2`
-    #     yours=`grep "== X" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}Hcao vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Hcao vs $champion on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/hcao.filler -p2 ./$login.filler > trace
+         enemy=`grep "== O" trace | cut -d: -f2`
+         yours=`grep "== X" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}Hcao vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Hcao vs $champion on map02: $wins/$limit${NC}"; fi
 
     # Testing HCAO on map00
     while [[ $i -lt $limit ]]
@@ -401,17 +401,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Hcao on map01: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Hcao on map01: $wins/$limit${NC}"; fi
 
     # Testing HCAO on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/hcao.filler -p1 ./$login.filler > trace
-    #     enemy=`grep "== X" trace | cut -d: -f2`
-    #     yours=`grep "== O" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Hcao on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Hcao on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/hcao.filler -p1 ./$login.filler > trace
+         enemy=`grep "== X" trace | cut -d: -f2`
+         yours=`grep "== O" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Hcao on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Hcao on map02: $wins/$limit${NC}"; fi
 
 # ----------------------------------------------  SUPERJEANNOT  ------------------------------------------------------------
 
@@ -440,17 +440,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}Superjeannot vs $champion on map01: $wins/$limit${NC}"; else echo "${GREEN}Superjeannot vs $champion on map01: $wins/$limit${NC}"; fi
 
     # Testing SUPERJEANNOT on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/superjeannot.filler -p2 ./$login.filler > trace
-    #     enemy=`grep "== O" trace | cut -d: -f2`
-    #     yours=`grep "== X" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}Superjeannot vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Superjeannot vs $champion on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p1 resources/players/superjeannot.filler -p2 ./$login.filler > trace
+         enemy=`grep "== O" trace | cut -d: -f2`
+         yours=`grep "== X" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}Superjeannot vs $champion on map02: $wins/$limit${NC}"; else echo "${GREEN}Superjeannot vs $champion on map02: $wins/$limit${NC}"; fi
 
     # Testing SUPERJEANNOT on map00
     while [[ $i -lt $limit ]]
@@ -477,17 +477,17 @@ if [ $error == 1 ]; then exit; fi
     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Superjeannot on map01: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Superjeannot on map01: $wins/$limit${NC}"; fi
 
     # Testing SUPERJEANNOT on map02
-    # i=0
-    # wins=0
-    # while [[ $i -lt $limit ]]
-    # do
-    #     ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/superjeannot.filler -p1 ./$login.filler > trace
-    #     enemy=`grep "== X" trace | cut -d: -f2`
-    #     yours=`grep "== O" trace | cut -d: -f2`
-    #     if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
-    #     ((i++))
-    # done
-    # if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Superjeannot on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Superjeannot on map02: $wins/$limit${NC}"; fi
+     i=0
+     wins=0
+     while [[ $i -lt $limit ]]
+     do
+         ./resources/filler_vm -f resources/maps/map02 -p2 resources/players/superjeannot.filler -p1 ./$login.filler > trace
+         enemy=`grep "== X" trace | cut -d: -f2`
+         yours=`grep "== O" trace | cut -d: -f2`
+         if [ $((yours)) -gt $((enemy)) ]; then ((wins++)); fi
+         ((i++))
+     done
+     if [[ $wins -lt 3 ]]; then echo "${RED}$champion vs Superjeannot on map02: $wins/$limit${NC}"; else echo "${GREEN}$champion vs Superjeannot on map02: $wins/$limit${NC}"; fi
 
 
 # Deleting trace file
