@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   viewer.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 15:11:58 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/30 17:11:04 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/01 11:44:05 by pommedepin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@ int			print_viewer(t_viewer *viewer, WINDOW *ptr_win, int fd)
 	int			h;
 	int			w;
 	
-	start_color();
+	//start_color();
 	init_pair(1, 2, 0);
 	init_pair(2, 1, 0);
 	init_pair(3, 7, 0);
+	//noecho();
 	wattron(ptr_win, A_BOLD);
+	//wmove(ptr_win, 1, 1);
+	//wrefresh(ptr_win);
 	h = 1;
 	dprintf(fd, "\nPRINT VIEWER:\n");
 	i = 0;
@@ -39,24 +42,17 @@ int			print_viewer(t_viewer *viewer, WINDOW *ptr_win, int fd)
 			if (viewer->visual[i][j] == 'o' || viewer->visual[i][j] == 'O')
 			{
 				wattron(ptr_win, COLOR_PAIR(1));
+				waddch(ptr_win, 'o' | 'O');
 				mvwaddch(ptr_win, h, w, viewer->visual[i][j]);
-				wrefresh(ptr_win);
 				dprintf(fd, "%c", viewer->visual[i][j]);
 			}
 			if (viewer->visual[i][j] == 'x' || viewer->visual[i][j] == 'X')
 			{
 				wattron(ptr_win, COLOR_PAIR(2));
 				mvwaddch(ptr_win, h, w, viewer->visual[i][j]);
-				wrefresh(ptr_win);
+				wechochar(ptr_win, viewer->visual[i][j]);
 				dprintf(fd, "%c", viewer->visual[i][j]);
 			}
-			/*else if (viewer->visual[i][j] == '.')
-			{
-				wattron(ptr_win, COLOR_PAIR(3));
-				mvwaddch(ptr_win, h, w, viewer->visual[i][j]);
-				wrefresh(ptr_win);
-				dprintf(fd, "%c", viewer->visual[i][j]);
-			}*/
 			j++;
 			w++;
 		}
@@ -64,9 +60,11 @@ int			print_viewer(t_viewer *viewer, WINDOW *ptr_win, int fd)
 		i++;
 		h++;
 	}
+	wattroff(ptr_win, COLOR_PAIR(2));
 	wattroff(ptr_win, COLOR_PAIR(1));
 	wattroff(ptr_win, A_BOLD);
-	getch();
+	wrefresh(ptr_win);
+	//getch();
 	return (0);
 }
 
@@ -78,13 +76,12 @@ WINDOW		*start_viewer(t_viewer *viewer, int fd)
 
 	initscr();
 	cbreak();
+	noecho();
 	ptr_win = newwin(viewer->h + 2, viewer->w + 2, 1, 1);
 	refresh();
 	start_color();
 	init_pair(3, 7, 0);
 	wborder(ptr_win, '|', '|', '-', '-', '+', '+', '+', '+');
-	wattron(ptr_win, COLOR_PAIR(1));
-	//wattron(ptr_win, A_BOLD);
 	h = 1;
 	dprintf(fd, "\nSTART VIEWER:\n");
 	while (h < viewer->h + 1)
@@ -103,8 +100,16 @@ WINDOW		*start_viewer(t_viewer *viewer, int fd)
 	}
 	dprintf(fd, "\n\n");
 	wattroff(ptr_win, COLOR_PAIR(1));
-	wattroff(ptr_win, A_BOLD);
-	getch();
-	endwin();
+	//getch();
+	//endwin();
 	return (ptr_win);
+}
+
+int			end_viewer(t_viewer	*viewer, WINDOW *ptr, int fd)
+{
+	wgetch(ptr);
+	dprintf(fd, "END of viewer\n");
+	endwin();
+	viewer->over = 3;
+	return (0);
 }
