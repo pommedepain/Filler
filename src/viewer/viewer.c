@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 15:11:58 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/01 18:31:00 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:36:40 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			print_viewer(t_viewer *viewer, int fd)
 	return (0);
 }
 
-WINDOW		*start_viewer(t_viewer *viewer, int fd)
+int			start_viewer(t_viewer *viewer, int fd)
 {
 	WINDOW		*ptr_win;
 	int			h;
@@ -95,7 +95,8 @@ WINDOW		*start_viewer(t_viewer *viewer, int fd)
 	}
 	dprintf(fd, "\n\n");
 	wattroff(ptr_win, COLOR_PAIR(1));
-	return (ptr_win);
+	viewer->ptr = ptr_win;
+	return (0);
 }
 
 int			end_viewer(t_viewer	*viewer, int fd)
@@ -105,6 +106,6 @@ int			end_viewer(t_viewer	*viewer, int fd)
 	dprintf(fd, "END of viewer\n");
 	ch = getch();
 	endwin();
-	viewer->over = 3;
+	viewer->status = 3;
 	return (0);
 }

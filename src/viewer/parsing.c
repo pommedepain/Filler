@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 13:27:44 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/01 14:54:48 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:35:31 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int			find_board(t_viewer *viewer, char **line, int fd)
 		}
 		if (ft_strstr(*line, "fin: "))
 		{
-			viewer->over = 1;
+			viewer->status = 1;
 			dprintf(fd, "GAME OVER\n");
 			return (1);
 		}
@@ -148,10 +148,10 @@ t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 			ft_strdel(line);
 		return (NULL);
 	}
-	if (viewer->over == -1)
+	if (viewer->status == -1)
 	{
-		viewer->ptr = start_viewer(viewer, fd);
-		viewer->over = 2;
+		start_viewer(viewer, fd);
+		viewer->status = 2;
 	}
 	if (ret == 1)
 	{

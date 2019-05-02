@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/16 19:40:59 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/24 16:41:30 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:41:34 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ t_game		*get_board(t_game *board, char **line, int fd)
 		dprintf(fd, "Get_size, fail = %s\n", *line);
 		return (NULL);
 	}
-	//dprintf(fd, "get_board line bf get_next_line = %s\n", *line);
-	// on jump la ligne 0123456789
 	if (!get_next_line(0, line))
 		return (NULL);
 	dprintf(fd, "get_board line we jump = %s\n\n", (*line));

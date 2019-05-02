@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/25 15:35:07 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/01 17:32:18 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/02 13:34:11 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_viewer	*init_viewer(t_viewer *viewer)
 	viewer->w = -1;
 	viewer->p1 = 0;
 	viewer->p2 = 0;
-	viewer->over = -1;
+	viewer->status = -1;
 	viewer->ptr = NULL;
 	return (viewer);
 }
@@ -99,7 +99,7 @@ int			main(void)
 			dprintf(fd, "fail get_visual\n");
 			break ;
 		}
-		if (viewer->over == 1)
+		if (viewer->status == 1)
 			break ;
 		ft_strdel(&line);
 	}
