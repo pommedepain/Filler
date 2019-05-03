@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/04/24 16:46:55 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/03 16:35:40 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_player	*begin_vm(t_player *player, char **line, int fd)
 		{
 			dprintf(fd, "begin_vm, char = %c\n", (*line)[10]);
 			player->id = ((*line)[10] == '1' ? 'O' : 'X');
-			//player->id_enmy = ((*line)[10] == '1' ? 'X' : 'O');
+			player->enmy = ((*line)[10] == '1' ? 'X' : 'O');
 			return (player);
 		}
 	}
@@ -53,7 +53,7 @@ int			main(void)
 		return (-1);
 	}
 	ft_strdel(&line);
-	dprintf(fd, "\nMain, success player = %c\n", player->id);
+	dprintf(fd, "\nMain, success player = %c\nenmy = %c\n", player->id, player->enmy);
 	while (1)
 	{
 		if (!(board = get_board(board, &line, fd))
