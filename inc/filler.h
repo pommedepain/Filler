@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/03 16:34:59 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/04 19:34:40 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ typedef struct	s_game
 	char	**form;
 	int		h;
 	int		w;
+	int		start;
 }				t_game;
 
 typedef struct	s_player
 {
 	int		y;
 	int		x;
+	int		nb;
 	char	id;
 	char	enmy;
 }				t_player;

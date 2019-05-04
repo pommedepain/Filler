@@ -6,7 +6,7 @@
 #    By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 17:20:13 by psentilh          #+#    #+#              #
-#    Updated: 2019/04/30 15:11:53 by psentilh         ###   ########.fr        #
+#    Updated: 2019/05/04 17:45:31 by psentilh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	psentilh.filler
 NAME_VW		=	viewer
 
 CC			=	gcc
-DEBUG		=	no
+DEBUG		=	yes
 ifeq ($(DEBUG), yes)
 	CFLAGS= -Wall -Werror -Wextra -fsanitize=address -g3 -I$(INC_PATH)
 else
