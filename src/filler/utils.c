@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:35:47 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/04 19:38:12 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:19:23 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ t_player	*init_player(t_player *player)
 	player->y = -1;
 	player->x = -1;
 	player->nb = 0;
+	player->border_1 = 0;
+	player->border_2 = 0;
+	player->border_3 = 0;
+	player->border_4 = 0;
 	player->id = 0;
 	player->enmy = 0;
 	return (player);

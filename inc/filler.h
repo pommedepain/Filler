@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/04 19:34:40 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/06 15:18:39 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef struct	s_player
 	int		y;
 	int		x;
 	int		nb;
+	int		border_1;
+	int		border_2;
+	int		border_3;
+	int		border_4;
 	char	id;
 	char	enmy;
 }				t_player;
