@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:59:37 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/06 17:57:44 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/06 18:01:20 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 		cord[1] = -1;
 		while (b->form[cord[0]][++cord[1]])
 		{
-			if (check_borders(b, ply, cord, fd) == 1)
+			if (check_borders(b, ply, cord, fd) == 1 && (enmy2 = attack_elsewhere(b, ply, fd) != enmy))
 			{
 				enmy = attack_elsewhere(b, ply, fd);
 				dprintf(fd, "check_borders true\n");
