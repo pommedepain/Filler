@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:59:37 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/06 18:01:20 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:49:28 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,32 +154,57 @@ int			*attack_elsewhere(t_game *board, t_player *player, int fd)
 	return (n_enmy);
 }
 
+/*int			*new_coord(t_game *board, t_player *player, int *cord, int fd)
+{
+	//int y;
+	//int x;
+
+	//y = -1;
+	while (board->form[cord[0]] != '\0')
+	{
+		//x = -1;
+		cord[1] = 0;
+		while (board->form[cord[0]][cord[1]] != '\0')
+		{
+			if (board->form[cord[0]][cord[1]] == player->enmy || (board->form[cord[0]][cord[1]] != '.' && board->form[cord[0]][cord[1]] != player->id))
+			{
+				cord[0] = cord[0];
+				cord[1] = cord[1];
+				dprintf(fd, "\nnew cord:\ncord[0] = %d\ncord[1] = %d\n", cord[0], cord[1]);
+				return (cord);
+			}
+			cord[1]++;
+		}
+		cord[0]++;
+	}
+	dprintf(fd, "bad cord:\ncord[0] = %d\ncord[1] = %d\n", cord[0], cord[1]);
+	return (NULL);
+}*/
+
 t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 {
 	int		cord[2];
+	//int		*n_cord;
 	int		dist;
 
 	cord[0] = -1;
 	dist = 100000;
+	/*if (!(n_cord = (int *)malloc(sizeof(int) * 2)))
+		return (NULL);
+	n_cord[0] = -1;
+	n_cord[1] = -1;*/
 	while (b->form[++cord[0]])
 	{
 		cord[1] = -1;
 		while (b->form[cord[0]][++cord[1]])
 		{
-			if (check_borders(b, ply, cord, fd) == 1 && (enmy2 = attack_elsewhere(b, ply, fd) != enmy))
+			if (check_borders(b, ply, cord, fd) == 1)
 			{
-				enmy = attack_elsewhere(b, ply, fd);
 				dprintf(fd, "check_borders true\n");
-				if (ply->border_1 == 1 || ply->border_2 == 1 || ply->border_3 == 1 || ply->border_4 == 1)
+				if ((ply->border_1 == 1 || ply->border_2 == 1 || ply->border_3 == 1 || ply->border_4 == 1)
+					&& ((ply->id == 'O' && ply->nb == 1) || (ply->id == 'X' && ply->nb == 2)))
 				{
-					cord[0] = 0;
-					cord[1] = 0;
-				}
-				else if ((ply->border_1 == 1 && ply->border_2 == 1) || (ply->border_1 == 1 && ply->border_3 == 1) || (ply->border_1 == 1 && ply->border_4 == 1)
-					|| (ply->border_2 == 1 && ply->border_3 == 1) || (ply->border_2 && ply->border_4 == 1)
-					|| (ply->border_3 == 1 && ply->border_4 == 1))
-				{
-					dprintf(fd, "borders reached:\nborder 1 = %d\nborder 2 = %d\nborder 3 = %d\nborder 4 = %d\n", ply->border_1, ply->border_2, ply->border_3, ply->border_4);
+					enmy = attack_elsewhere(b, ply, fd);
 				}
 			}
 			if (is_pos_valid(b, p, ply, cord) == 1)
@@ -192,8 +217,8 @@ t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 					dprintf(fd, "dist final = %d\n", dist);
 					ply->y = cord[0];
 					ply->x = cord[1];
-					if (ply->border_1 == 1 || ply->border_2 == 1 || ply->border_3 == 1 || ply->border_4 == 1)
-						return (ply);
+					//if (ply->border_1 == 1 || ply->border_2 == 1 || ply->border_3 == 1 || ply->border_4 == 1)
+					//	return (ply);
 					dprintf(fd, "ply->y = %d\nply->x = %d\n", ply->y, ply->x);
 				}
 			}
