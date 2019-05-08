@@ -75,6 +75,7 @@ t_game		*init_game(t_game *game)
 	game->w = -1;
 	//game->size = 0;
 	game->form = NULL;
+	game->oform = NULL;
 	game->start = -1;
 	return (game);
 }
@@ -87,10 +88,6 @@ t_player	*init_player(t_player *player)
 	player->y = -1;
 	player->x = -1;
 	player->nb = 0;
-	player->border_1 = 0;
-	player->border_2 = 0;
-	player->border_3 = 0;
-	player->border_4 = 0;
 	player->id = 0;
 	player->enmy = 0;
 	return (player);

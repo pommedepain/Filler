@@ -64,7 +64,7 @@ int			main(void)
 			dprintf(fd, "while 1 break\n");
 			break ;
 		}
-		free_prog(&board, &piece, NULL, &line, fd);
+		free_prog(NULL, &piece, NULL, &line, fd);
 	}
 	free_prog(&board, &piece, &player, &line, fd);
 	dprintf(fd, "\n\nEnd of program\n");

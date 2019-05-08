@@ -23,6 +23,7 @@
 typedef struct	s_game
 {
 	char	**form;
+	char	**oform;
 	int		h;
 	int		w;
 	int		start;
@@ -33,10 +34,6 @@ typedef struct	s_player
 	int		y;
 	int		x;
 	int		nb;
-	int		border_1;
-	int		border_2;
-	int		border_3;
-	int		border_4;
 	char	id;
 	char	enmy;
 }				t_player;
@@ -79,7 +76,7 @@ t_game			*game_loop(t_game *game, char **line, int fd);
 /*
 ** solve.c
 */
-int				*find_enmy(t_game *board, t_player *player, int *enmy);
+int				*find_enmy(t_game *board, t_player *player, int *enmy, int check);
 int				solve(t_game *board, t_game *piece, t_player *player, int fd);
 
 /*

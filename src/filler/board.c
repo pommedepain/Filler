@@ -12,6 +12,26 @@
 
 #include "filler.h"
 
+void		copy_board(t_game **board, int fd)
+{
+	int y;
+	int x;
+
+	if (!((*board)->oform))
+		if (!(((*board)->oform) = (char **)malloc(sizeof(char *) * (*board)->h + 1)))
+			return ;
+	y = -1;
+	while ((*board)->form[++y])
+	{
+		if (!((*board)->oform[y] = ft_strnew((*board)->w)))
+			return ;
+		x = -1;
+		while ((*board)->form[y][++x])
+			(*board)->oform[y][x] = (*board)->form[y][x];
+		dprintf(fd, "%s\n", (*board)->oform[y]);
+	}
+}
+
 int			check_count_board(t_game *board, char *str)
 {
 	int		count;
@@ -32,6 +52,11 @@ int			check_count_board(t_game *board, char *str)
 
 t_game		*get_board(t_game *board, char **line, int fd)
 {
+	if (board && board->form)
+	{
+		dprintf(fd, "\ncopy_board:\n");
+		copy_board(&board, fd);
+	}
 	if ((board = init_game(board)) == NULL)
 		return (NULL);
 	if (!get_next_line(0, line) || !ft_strstr(*line, "Plateau "))

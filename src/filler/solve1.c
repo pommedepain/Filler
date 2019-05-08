@@ -5,14 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/15 17:59:37 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/08 16:45:38 by psentilh         ###   ########.fr       */
+/*   Created: 2019/05/08 15:15:58 by psentilh          #+#    #+#             */
+/*   Updated: 2019/05/08 16:43:36 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int			*find_enmy(t_game *board, t_player *player, int *enmy, int check)
+int			check_borders(t_game *board, t_player *player)
+{
+	int y;
+	int x;
+
+	y = -1;
+	while (board->form[++y])
+	{
+		x = -1;
+		while (board->form[y][++x])
+		{
+			if (board->form[y][x] == player->id && board->form[y][x] != '.' && y == 0)
+				return (player->border_1 = 1);
+			if (board->form[y][x] == player->id && board->form[y][x] != '.' && x == 0)
+				return (player->border_2 = 1);
+			if (board->form[y][x] == player->id && board->form[y][x] != '.' && y == (board->h - 1))
+				return (player->border_3 = 1);
+			if (board->form[y][x] == player->id && board->form[y][x] != '.' && x == (board->w - 1))
+				return (player->border_4 = 1);
+		}
+	}	
+	return (0);
+}
+
+int			*find_enmy(t_game *board, t_player *player, int *enmy)
 {
 	int x;
 	int y;
@@ -23,16 +47,13 @@ int			*find_enmy(t_game *board, t_player *player, int *enmy, int check)
 		x = -1;
 		while (board->form[y][++x])
 		{
-			if ((board->oform && board->form[y][x] != '.' && board->form[y][x] != player->id && board->oform[y][x] == '.' && !check)
-				|| (board->form[y][x] == player->enmy && check))
+			if ((board->form[y][x] != '.' && board->form[y][x] != player->id) || board->form[y][x] == player->enmy)
 			{
 				enmy[0] = y;
 				enmy[1] = x;
 			}
 		}
 	}
-	if (enmy[0] == -1)
-		return (find_enmy(board, player, enmy, 1));
 	return (enmy);
 }
 
@@ -92,6 +113,33 @@ int			check_dist(int *cord, int *enmy, t_game *piece)
 	return (dist);
 }
 
+int			where_am_i(t_game *board, t_player *player, int *enmy, int fd)
+{
+	while (board->form[++enmy[0]])
+	{
+		while (board->form[enmy[0][++enmy[1]]])
+		{
+			if (board->form[enmy[0][enmy[1]]] == player->id && board->form[enmy[0][enmy[1]]] != '.')
+			{
+				player->y = enmy[0];
+				player->x = enmy[1];
+				return (1);
+			}
+		}
+		enmy[1] = -1;
+	}
+	return (0);
+}
+
+int			deploy(t_game *board, t_player *player, int *enmy, int fd)
+{
+	if (where_am_i(board, player, enmy, fd) == 1)
+	{
+		if (player->y <= (board->h / 2))
+			
+	}
+}
+
 t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 {
 	int		cord[2];
@@ -110,6 +158,8 @@ t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 				{
 					dprintf(fd, "\ndist = %d\nenmy[0] = %d && enmy[1] = %d\ncord[0] = %d && cord[1] = %d\n", dist, enmy[0], enmy[1], cord[0], cord[1]);
 					dist = check_dist(cord, enmy, p);
+					if (dist <= 25)
+						deploy(b, ply, enmy, fd);
 					dprintf(fd, "dist final = %d\n", dist);
 					ply->y = cord[0];
 					ply->x = cord[1];
@@ -130,7 +180,7 @@ int			solve(t_game *board, t_game *piece, t_player *player, int fd)
 		return (-1);
 	enmy[0] = -1;
 	enmy[1] = -1;
-	enmy = find_enmy(board, player, enmy, 0);
+	enmy = find_enmy(board, player, enmy);
 	dprintf(fd, "1st enmy[0] = %d\nenmy[1] = %d\n", enmy[0], enmy[1]);
 	player = first_solving(board, player, piece, enmy, fd);
 	dprintf(fd, "\n\nFINAL CORD : %d %d\n", player->y, player->x);
