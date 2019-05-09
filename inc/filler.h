@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:23:55 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/07 18:13:29 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:44:13 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_game
 	char	**oform;
 	int		h;
 	int		w;
-	int		start;
 }				t_game;
 
 typedef struct	s_player
@@ -76,7 +75,6 @@ t_game			*game_loop(t_game *game, char **line, int fd);
 /*
 ** solve.c
 */
-int				*find_enmy(t_game *board, t_player *player, int *enmy, int check);
 int				solve(t_game *board, t_game *piece, t_player *player, int fd);
 
 /*

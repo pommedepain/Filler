@@ -6,14 +6,11 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 15:11:58 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/02 13:36:40 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/09 14:44:24 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
-// Tenter de starter le viewer avec l'initialisation de la map, comme ça le fond reste fixe comme le cadre; puis entre chaque map, parser uniquement les X et O
-// == pas de saut d'image sur la map, uniquement sur les pieces mais ne se verra pas
 
 int			print_viewer(t_viewer *viewer, int fd)
 {
