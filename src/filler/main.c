@@ -6,7 +6,7 @@
 /*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 17:39:05 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/09 18:05:26 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/04 18:17:32 by psentilh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int			main(void)
 			dprintf(fd, "while 1 break\n");
 			break ;
 		}
-		free_prog(&board, &piece, NULL, &line, fd);
+		free_prog(NULL, &piece, NULL, &line, fd);
 	}
 	free_prog(&board, &piece, &player, &line, fd);
 	dprintf(fd, "\n\nEnd of program\n");

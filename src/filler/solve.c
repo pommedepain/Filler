@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solve.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psentilh <psentilh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pommedepin <pommedepin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 17:59:37 by psentilh          #+#    #+#             */
-/*   Updated: 2019/05/09 14:15:21 by psentilh         ###   ########.fr       */
+/*   Updated: 2019/05/11 15:13:04 by pommedepin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			*find_enmy(t_game *board, t_player *player, int *enmy, int check, int fd)
 		x = -1;
 		while (board->form[y][++x])
 		{
-			if ((board->oform != NULL && board->form[y][x] != '.' && board->form[y][x] != player->id
+			if ((board->oform && board->form[y][x] != '.' && board->form[y][x] != player->id
 				&& board->oform[y][x] == '.' && !check)
 				|| (board->form[y][x] != '.' && board->form[y][x] != player->id && check))
 			{
@@ -46,7 +46,7 @@ int			is_pos_valid(t_game *b, t_game *p, t_player *ply, int *cord)
 	int	check;
 
 	i = -1;
-	check = -1;
+	check = 0;
 	while (p->form[++i])
 	{
 		j = -1;
@@ -54,7 +54,7 @@ int			is_pos_valid(t_game *b, t_game *p, t_player *ply, int *cord)
 		{
 			if (p->form[i][j] == '*' && cord[0] + i < b->h
 				&& cord[1] + j < b->w
-				&& b->form[cord[0] + i][cord[1] + j] == ply->id && check == -1)
+				&& b->form[cord[0] + i][cord[1] + j] == ply->id && !check)
 				check = 1;
 			else if (p->form[i][j] == '*' && (cord[0] + i >= b->h
 				|| cord[1] + j >= b->w
@@ -63,7 +63,7 @@ int			is_pos_valid(t_game *b, t_game *p, t_player *ply, int *cord)
 				return (0);
 		}
 	}
-	if (check == -1)
+	if (!check)
 		return (0);
 	return (1);
 }
@@ -130,6 +130,8 @@ int			solve(t_game *board, t_game *piece, t_player *player, int fd)
 	int i;
 
 	dprintf(fd, "\n\nSOLVE :\n");
+	if (!board || !piece || !player)
+		return(-1);
 	if (!(enmy = (int *)malloc(sizeof(int) * 2)))
 		return (-1);
 	//enmy[0] = -1;
