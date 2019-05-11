@@ -12,47 +12,51 @@
 
 #include "filler.h"
 
-void		copy_board(t_game **board, int fd)
+int		copy_board(t_game **b, int fd)
 {
 	int y;
 	int x;
 
-	dprintf(fd, "board->h = %d\n", (*board)->h);
-	if (!((*board)->oform))
-		if (!(((*board)->oform) = (char **)malloc(sizeof(char *) * (*board)->h + 1)))
-			return ;
+	if (!((*b)->oform))
+		if (!(((*b)->oform) = (char **)ft_memalloc(sizeof(char *) * (*b)->h + 1)))
+			return (-1);
 	y = -1;
-	while ((*board)->form[++y])
+	while ((*b)->form[++y])
 	{
-		if (!((*board)->oform[y] = ft_strnew((*board)->w)))
-			return ;
+		if (!((*b)->oform[y]))
+			if (!((*b)->oform[y] = ft_strnew((*b)->w)))
+				return (-1);
 		x = -1;
-		while ((*board)->form[y][++x])
-			(*board)->oform[y][x] = (*board)->form[y][x];
-		dprintf(fd, "%s\n", (*board)->oform[y]);
+		while ((*b)->form[y][++x])
+			(*b)->oform[y][x] = (*b)->form[y][x];
+		dprintf(fd, "%s\n", (*b)->oform[y]);
 	}
+	return (1);
 }
 
 t_game		*get_board(t_game *board, char **line, int fd)
 {
 	if (!board)
-		if ((board = init_game(board)) == NULL)
-			return (NULL);
-	if (board && board->form != NULL)
+		if (!(board = init_game(board)))
+			return (free_game(board, fd));
+	if (board && board->form)
 	{
 		dprintf(fd, "\ncopy_board:\n");
-		copy_board(&board, fd);
+		if (copy_board(&board, fd) == -1)
+			return (free_game(board, fd));
 	}
 	if (!get_next_line(0, line) || !ft_strstr(*line, "Plateau "))
 	{
+		free_line(*line, fd);
 		dprintf(fd, "Get_board, fail strstr = %s\n", *line);
-		return (free_game(board, fd));
+		return (NULL);
 	}
 	dprintf(fd, "\nGet_size, Board =");
+	ft_tabdel(board->form);
 	if (get_size(board, *line, fd) == -1)
 	{
 		dprintf(fd, "Get_size, fail = %s\n", *line);
-		return (NULL);
+		return (free_game(board, fd));
 	}
 	if (!get_next_line(0, line))
 		return (NULL);

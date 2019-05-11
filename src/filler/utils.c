@@ -21,6 +21,8 @@ t_game		*free_game(t_game *board, int fd)
 	{
 		if (board->form)
 			ft_tabdel(board->form);
+		if (board->oform)
+			ft_tabdel(board->oform);
 		free(board);
 		board = NULL;
 		dprintf(fd, "free game\n");
@@ -49,20 +51,20 @@ char		*free_line(char *line, int fd)
 	return (NULL);
 }
 
-void		free_prog(t_game **board, t_game **piece, t_player **player, char **line, int fd)
+void		free_prog(t_game **b, t_game **p, t_player **ply, char **line, int fd)
 {
-	if (board && *board)
+	if (b && *b)
 	{
-		*board = free_game(*board, fd);
+		*b = free_game(*b, fd);
 		dprintf(fd, "free board\n");
 	}
-	if (piece && *piece)
+	if (p && *p)
 	{
-		*piece = free_game(*piece, fd);
+		*p = free_game(*p, fd);
 		dprintf(fd, "free piece\n");
 	}
-	if (player && *player)
-		*player = free_player(*player, fd);
+	if (ply && *ply)
+		*ply = free_player(*ply, fd);
 	if (line && *line)
 		*line = free_line(*line, fd);
 }

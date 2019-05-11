@@ -99,7 +99,8 @@ int			find_board(t_viewer *viewer, char **line, int fd)
 	while (!ft_strstr(*line, "Plateau "))
 	{
 		ft_strdel(line);
-		get_next_line(0, line);
+		if (!get_next_line(0, line))
+			return (-1);
 		dprintf(fd, "line = %s\n", *line);
 		if (ft_strstr(*line, "Plateau "))
 		{

@@ -15,10 +15,13 @@
 t_player	*begin_vm(t_player *player, char **line, int fd)
 {
 	if (!*line)
+	{
+		free_prog(NULL, NULL, &player, line, fd);
 		return (NULL);
+	}
 	if (ft_strstr(*line, "$$$ exec p") && ft_strstr(*line, "psentilh"))
 	{
-		if ((*line)[10] == '1' || (*line)[10] == '2')
+		if ((ft_strlens(*line) > 11) && ((*line)[10] == '1' || (*line)[10] == '2'))
 		{
 			dprintf(fd, "begin_vm, char = %c\n", (*line)[10]);
 			player->id = ((*line)[10] == '1' ? 'O' : 'X');
@@ -27,6 +30,7 @@ t_player	*begin_vm(t_player *player, char **line, int fd)
 			return (player);
 		}
 	}
+	free_prog(NULL, NULL, &player, line, fd);
 	return (NULL);
 }
 
@@ -42,14 +46,18 @@ int			main(void)
 	board = NULL;
 	player = NULL;
 	piece = NULL;
+	fd = 0;
 	if (!(fd = open("fichier_test", O_WRONLY | O_CREAT, 0644)))
 		return (-1);
 	dprintf(fd, "test\n");
 	if (!(player = init_player(player)))
+	{
 		free_player(player, fd);
+		return (-1);
+	}
 	if (!get_next_line(0, &line) || !(player = begin_vm(player, &line, fd)))
 	{
-		free_prog(NULL, NULL, &player, &line, fd);
+		//free_prog(NULL, NULL, &player, &line, fd);
 		dprintf(fd, "Main, fail begin_vm = %s\n", line);
 		return (-1);
 	}

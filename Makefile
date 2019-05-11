@@ -14,7 +14,7 @@ NAME		=	psentilh.filler
 NAME_VW		=	viewer
 
 CC			=	gcc
-DEBUG		=	yes
+DEBUG		=	no
 ifeq ($(DEBUG), yes)
 	CFLAGS= -Wall -Werror -Wextra -fsanitize=address -g3 -I$(INC_PATH)
 else

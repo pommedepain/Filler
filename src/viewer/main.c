@@ -54,7 +54,8 @@ t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
 	while (!ft_strstr(*line, "$$$ exec p"))
 	{
 		ft_strdel(line);
-		get_next_line(0, line);
+		if (get_next_line(0, line) != 1)
+			return (NULL);
 		//dprintf(fd, "line = %s\n", *line);
 		//dprintf(fd, "char[10] = %c\n", (*line)[10]);
 		if ((*line)[10] == '1')
@@ -67,6 +68,20 @@ t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
 	dprintf(fd, "begin_vm, if doesn't work\n");
 	ft_strdel(line);
 	return (NULL);
+}
+
+void			viewer_error(char *str, t_viewer *viewer, int fd)
+{
+	if (str)
+	{
+		dprintf(fd, "%s\n", str);
+		ft_putendl_fd(str, 2);
+	}
+	if (viewer)
+	{
+		dprintf(fd, "free viewer\n");
+		free_viewer(viewer, fd);
+	}
 }
 
 int			main(void)
@@ -82,12 +97,12 @@ int			main(void)
 	dprintf(fd, "test\n");
 	if (!(viewer = init_viewer(viewer)))
 	{
-		dprintf(fd, "FAIL init_viewer\n");
+		viewer_error("A problem occured while mallocing the viewer", viewer, fd);
 		return (-1);
 	}
-	if (get_next_line(0, &line) != 1 || !(viewer = begin_vm(viewer, &line, fd)))
+	if (!get_next_line(0, &line) || !(viewer = begin_vm(viewer, &line, fd)))
 	{
-		dprintf(fd, "Fail gnl ou parse player\n");
+		viewer_error("A problem occured while searching for players and the board", viewer, fd);
 		return (-1);
 	}
 	ft_strdel(&line);
@@ -96,14 +111,18 @@ int			main(void)
 	{
 		if (!(viewer = get_visual(viewer, &line, fd)))
 		{
-			dprintf(fd, "fail get_visual\n");
+			viewer_error("A problem occured while parsing the board", viewer, fd);
 			break ;
 		}
 		if (viewer->status == 1)
 			break ;
 		ft_strdel(&line);
 	}
-	end_viewer(viewer, fd);
+	if (end_viewer(viewer, fd) == -1)
+	{
+		viewer_error("A problem occured while ending the viewer", viewer, fd);
+		return (-1);
+	}
 	dprintf(fd, "main 3 line = %s\n", line);
 	ft_strdel(&line);
 	free_viewer(viewer, fd);

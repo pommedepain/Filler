@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-int			*find_enmy(t_game *board, t_player *player, int *enmy, int check, int fd)
+int			*find_enmy(t_game *b, t_player *ply, int *enmy, int check, int fd)
 {
 	int x;
 	int y;
@@ -20,14 +20,14 @@ int			*find_enmy(t_game *board, t_player *player, int *enmy, int check, int fd)
 	y = -1;
 	enmy[0] = -1;
 	enmy[1] = -1;
-	while (board->form[++y])
+	while (b->form[++y])
 	{
 		x = -1;
-		while (board->form[y][++x])
+		while (b->form[y][++x])
 		{
-			if ((board->oform && board->form[y][x] != '.' && board->form[y][x] != player->id
-				&& board->oform[y][x] == '.' && !check)
-				|| (board->form[y][x] != '.' && board->form[y][x] != player->id && check))
+			if ((b->oform && b->form[y][x] != '.' && b->form[y][x] != ply->id
+			&& b->oform[y][x] == '.' && !check)
+			|| (b->form[y][x] != '.' && b->form[y][x] != ply->id && check))
 			{
 				enmy[0] = y;
 				enmy[1] = x;
@@ -35,7 +35,7 @@ int			*find_enmy(t_game *board, t_player *player, int *enmy, int check, int fd)
 		}
 	}
 	if (enmy[0] == -1)
-		return (find_enmy(board, player, enmy, 1, fd));
+		return (find_enmy(b, ply, enmy, 1, fd));
 	return (enmy);
 }
 
@@ -68,7 +68,7 @@ int			is_pos_valid(t_game *b, t_game *p, t_player *ply, int *cord)
 	return (1);
 }
 
-float			check_dist(int *cord, int *enmy, t_game *piece)
+float		check_dist(int *cord, int *enmy, t_game *piece)
 {
 	int		i;
 	int		j;
@@ -131,11 +131,9 @@ int			solve(t_game *board, t_game *piece, t_player *player, int fd)
 
 	dprintf(fd, "\n\nSOLVE :\n");
 	if (!board || !piece || !player)
-		return(-1);
+		return (-1);
 	if (!(enmy = (int *)malloc(sizeof(int) * 2)))
 		return (-1);
-	//enmy[0] = -1;
-	//enmy[1] = -1;
 	i = -1;
 	if (board->oform != NULL)
 		while (++i < board->h)

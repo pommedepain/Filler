@@ -82,12 +82,9 @@ t_game		*game_loop(t_game *game, char **line, int fd)
 		}
 		else
 		{
-			j = 0;
-			while (j < game->w)
-			{
+			j = -1;
+			while (++j < game->w)
 				game->form[i][j] = (*line)[j];
-				j++;
-			}
 		}
 		ft_strdel(line);
 	}
