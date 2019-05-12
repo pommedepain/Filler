@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-t_game		*free_game(t_game *board, int fd)
+t_game		*free_game(t_game *board)
 {
 	int i;
 
@@ -25,48 +25,37 @@ t_game		*free_game(t_game *board, int fd)
 			ft_tabdel(board->oform);
 		free(board);
 		board = NULL;
-		dprintf(fd, "free game\n");
 	}
 	return (NULL);
 }
 
-t_player	*free_player(t_player *player, int fd)
+t_player	*free_player(t_player *player)
 {
 	if (player)
 	{
 		free(player);
 		player = NULL;
-		dprintf(fd, "free player\n");
 	}
 	return (NULL);
 }
 
-char		*free_line(char *line, int fd)
+char		*free_line(char *line)
 {
 	if (line)
-	{
 		ft_strdel(&line);
-		dprintf(fd, "free line\n");
-	}
 	return (NULL);
 }
 
-void		free_prog(t_game **b, t_game **p, t_player **ply, char **line, int fd)
+void		free_prog(t_game **b, t_game **p, t_player **ply, char **line)
 {
 	if (b && *b)
-	{
-		*b = free_game(*b, fd);
-		dprintf(fd, "free board\n");
-	}
+		*b = free_game(*b);
 	if (p && *p)
-	{
-		*p = free_game(*p, fd);
-		dprintf(fd, "free piece\n");
-	}
+		*p = free_game(*p);
 	if (ply && *ply)
-		*ply = free_player(*ply, fd);
+		*ply = free_player(*ply);
 	if (line && *line)
-		*line = free_line(*line, fd);
+		*line = free_line(*line);
 }
 
 t_game		*init_game(t_game *game)

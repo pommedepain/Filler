@@ -23,5 +23,5 @@ void	ft_tabdel(char **as)
 			free(as[i++]);
 		free(as);
 	}
-	//free(as);
+	as = NULL;
 }

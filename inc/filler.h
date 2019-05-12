@@ -57,33 +57,33 @@ typedef struct	s_viewer
 */
 int				check_count_board(t_game *board, char *str);
 int				check_first_board(t_game *board);
-t_game			*get_board(t_game *board, char **line, int fd);
+t_game			*get_board(t_game *board, char **line);
 
 /*
 ** piece.c
 */
 void			get_size_sign(t_game *game);
-t_game			*get_piece(t_game *piece, char **line, int fd);
+t_game			*get_piece(t_game *piece, char **line);
 
 /*
 ** parsing.c
 */
 int				game_malloc(t_game *game);
-int				get_size(t_game *game, char *line, int fd);
-t_game			*game_loop(t_game *game, char **line, int fd);
+int				get_size(t_game *game, char *line);
+t_game			*game_loop(t_game *game, char **line);
 
 /*
 ** solve.c
 */
-int				solve(t_game *board, t_game *piece, t_player *player, int fd);
+int				solve(t_game *board, t_game *piece, t_player *player);
 
 /*
 ** utils.c
 */
-t_game			*free_game(t_game *board, int fd);
-t_player		*free_player(t_player *player, int fd);
-char			*free_line(char *line, int fd);
-void			free_prog(t_game **board, t_game **piece, t_player **player, char **line, int fd);
+t_game			*free_game(t_game *board);
+t_player		*free_player(t_player *player);
+char			*free_line(char *line);
+void			free_prog(t_game **board, t_game **piece, t_player **player, char **line);
 t_game			*init_game(t_game *game);
 t_player		*init_player(t_player *player);
 

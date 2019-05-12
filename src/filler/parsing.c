@@ -29,7 +29,7 @@ int			game_malloc(t_game *game)
 	return (0);
 }
 
-int			get_size(t_game *game, char *line, int fd)
+int			get_size(t_game *game, char *line)
 {
 	int i;
 	int nb;
@@ -47,17 +47,13 @@ int			get_size(t_game *game, char *line, int fd)
 	game->w = nb;
 	if (game->h == -1 || game->w == -1)
 		return (-1);
-	dprintf(fd, "\nh = %d\nw = %d\n\n", game->h, game->w);
 	if (game_malloc(game) == -1)
-	{
-		dprintf(fd, "game_malloc failed\n");
 		return (-1);
-	}
 	ft_strdel(&line);
 	return (0);
 }
 
-t_game		*game_loop(t_game *game, char **line, int fd)
+t_game		*game_loop(t_game *game, char **line)
 {
 	int i;
 	int j;
@@ -66,11 +62,7 @@ t_game		*game_loop(t_game *game, char **line, int fd)
 	while (++i < game->h)
 	{
 		if (get_next_line(0, line) != 1)
-		{
-			dprintf(fd, "game_loop, get_next_line failed\n");
-			return (free_game(game, fd));
-		}
-		//dprintf(fd, "Game_loop, get_next_line %d = %s\n", i, (*line));
+			return (/*free_game(game)*/NULL);
 		if (ft_char_only(*line, '.', '*') == 0)
 		{
 			j = 4;
@@ -88,8 +80,5 @@ t_game		*game_loop(t_game *game, char **line, int fd)
 		}
 		ft_strdel(line);
 	}
-	i = -1;
-	while (++i < game->h)
-		dprintf(fd, "Game_loop, game->form %d =	%s\n", i, game->form[i]);
 	return (game);
 }

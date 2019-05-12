@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-int			*find_enmy(t_game *b, t_player *ply, int *enmy, int check, int fd)
+int			*find_enmy(t_game *b, t_player *ply, int *enmy, int check)
 {
 	int x;
 	int y;
@@ -35,7 +35,7 @@ int			*find_enmy(t_game *b, t_player *ply, int *enmy, int check, int fd)
 		}
 	}
 	if (enmy[0] == -1)
-		return (find_enmy(b, ply, enmy, 1, fd));
+		return (find_enmy(b, ply, enmy, 1));
 	return (enmy);
 }
 
@@ -95,7 +95,7 @@ float		check_dist(int *cord, int *enmy, t_game *piece)
 	return (dist);
 }
 
-t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
+t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy)
 {
 	int		cord[2];
 	float	dist;
@@ -111,12 +111,9 @@ t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 			{
 				if (dist > check_dist(cord, enmy, p))
 				{
-					dprintf(fd, "\ndist = %f\nenmy[0] = %d && enmy[1] = %d\ncord[0] = %d && cord[1] = %d\n", dist, enmy[0], enmy[1], cord[0], cord[1]);
 					dist = check_dist(cord, enmy, p);
-					dprintf(fd, "dist final = %f\n", dist);
 					ply->y = cord[0];
 					ply->x = cord[1];
-					dprintf(fd, "ply->y = %d\nply->x = %d\n", ply->y, ply->x);
 				}
 			}
 		}
@@ -124,24 +121,16 @@ t_player	*first_solving(t_game *b, t_player *ply, t_game *p, int *enmy, int fd)
 	return (ply);
 }
 
-int			solve(t_game *board, t_game *piece, t_player *player, int fd)
+int			solve(t_game *board, t_game *piece, t_player *player)
 {
 	int		*enmy;
-	int i;
 
-	dprintf(fd, "\n\nSOLVE :\n");
 	if (!board || !piece || !player)
 		return (-1);
 	if (!(enmy = (int *)malloc(sizeof(int) * 2)))
 		return (-1);
-	i = -1;
-	if (board->oform != NULL)
-		while (++i < board->h)
-			dprintf(fd, "OFORM %d :	%s\n", i, board->oform[i]);
-	enmy = find_enmy(board, player, enmy, 0, fd);
-	dprintf(fd, "1st enmy[0] = %d\nenmy[1] = %d\n", enmy[0], enmy[1]);
-	player = first_solving(board, player, piece, enmy, fd);
-	dprintf(fd, "\n\nFINAL CORD : %d %d\n", player->y, player->x);
+	enmy = find_enmy(board, player, enmy, 0);
+	player = first_solving(board, player, piece, enmy);
 	free(enmy);
 	return (ft_printf("%d %d\n", player->y, player->x));
 }
