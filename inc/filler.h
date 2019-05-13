@@ -37,6 +37,8 @@ typedef struct	s_player
 	char	enmy;
 }				t_player;
 
+typedef WINDOW*	t_window;
+
 typedef struct	s_viewer
 {
 	char	**visual;
@@ -55,20 +57,16 @@ typedef struct	s_viewer
 /*
 ** board.c
 */
-int				check_count_board(t_game *board, char *str);
-int				check_first_board(t_game *board);
 t_game			*get_board(t_game *board, char **line);
 
 /*
 ** piece.c
 */
-void			get_size_sign(t_game *game);
 t_game			*get_piece(t_game *piece, char **line);
 
 /*
 ** parsing.c
 */
-int				game_malloc(t_game *game);
 int				get_size(t_game *game, char *line);
 t_game			*game_loop(t_game *game, char **line);
 
@@ -80,24 +78,19 @@ int				solve(t_game *board, t_game *piece, t_player *player);
 /*
 ** utils.c
 */
-t_game			*free_game(t_game *board);
-t_player		*free_player(t_player *player);
-char			*free_line(char *line);
-void			free_prog(t_game **board, t_game **piece, t_player **player, char **line);
-t_game			*init_game(t_game *game);
+void			*free_game(t_game *board);
+void			*free_player(t_player *player);
+void			*free_prog(t_game **board, t_game **piece, t_player **player,
+				char **line);
 t_player		*init_player(t_player *player);
 
 /*
 **						VIEWER:
 */
-
-/*
-** parsing.c
-*/
-t_viewer		*get_visual(t_viewer *viewer, char **line, int fd);
-t_viewer		*free_viewer(t_viewer *viewer, int fd);
-int				start_viewer(t_viewer *viewer, int fd);
-int				print_viewer(t_viewer *viewer, int fd);
-int				end_viewer(t_viewer	*viewer, int fd);
+t_viewer		*get_visual(t_viewer *viewer, char **line);
+t_viewer		*free_viewer(t_viewer *viewer);
+int				start_viewer(t_viewer *viewer);
+int				print_viewer(t_viewer *viewer);
+int				end_viewer(t_viewer	*viewer);
 
 #endif

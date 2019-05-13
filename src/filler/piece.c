@@ -14,11 +14,13 @@
 
 t_game		*get_piece(t_game *piece, char **line)
 {
-	if (!(piece = init_game(piece)))
+	if (!(piece = (t_game *)ft_memalloc(sizeof(t_game))))
 		return (NULL);
 	if (!get_next_line(0, line) || !ft_strstr(*line, "Piece "))
-		return (NULL);
-	if (get_size(piece, *line) == -1)
-		return (NULL);
+		return (free_game(piece));
+	get_size(piece, *line);
+	ft_strdel(line);
+	if (!(piece->form = (char **)ft_memalloc(sizeof(char *) * (piece->h + 1))))
+		return (free_game(piece));
 	return (game_loop(piece, line));
 }

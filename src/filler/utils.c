@@ -12,41 +12,46 @@
 
 #include "filler.h"
 
-t_game		*free_game(t_game *board)
+void		*free_game(t_game *board)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	if (board)
 	{
 		if (board->form)
-			ft_tabdel(board->form);
+		{
+			while (++i < board->h)
+				free(board->form[i]);
+			free(board->form);
+		}
+		i = -1;
 		if (board->oform)
-			ft_tabdel(board->oform);
+		{
+			while (++i < board->h)
+				free(board->oform[i]);
+			free(board->oform);
+		}
 		free(board);
-		board = NULL;
 	}
 	return (NULL);
 }
 
-t_player	*free_player(t_player *player)
+void		*free_player(t_player *player)
 {
 	if (player)
-	{
 		free(player);
-		player = NULL;
-	}
 	return (NULL);
 }
 
-char		*free_line(char *line)
+void		*free_line(char *line)
 {
 	if (line)
 		ft_strdel(&line);
 	return (NULL);
 }
 
-void		free_prog(t_game **b, t_game **p, t_player **ply, char **line)
+void		*free_prog(t_game **b, t_game **p, t_player **ply, char **line)
 {
 	if (b && *b)
 		*b = free_game(*b);
@@ -56,17 +61,7 @@ void		free_prog(t_game **b, t_game **p, t_player **ply, char **line)
 		*ply = free_player(*ply);
 	if (line && *line)
 		*line = free_line(*line);
-}
-
-t_game		*init_game(t_game *game)
-{
-	if (!(game = (t_game *)ft_memalloc(sizeof(t_game))))
-		return (NULL);
-	game->h = -1;
-	game->w = -1;
-	game->form = NULL;
-	game->oform = NULL;
-	return (game);
+	return (NULL);
 }
 
 t_player	*init_player(t_player *player)

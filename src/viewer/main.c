@@ -25,39 +25,15 @@ t_viewer	*init_viewer(t_viewer *viewer)
 	return (viewer);
 }
 
-t_viewer	*free_viewer(t_viewer *viewer, int fd)
-{
-	int i;
-
-	if (viewer)
-	{
-		if (viewer->visual)
-		{
-			i = -1;
-			while (viewer->visual[++i])
-				free(viewer->visual[i]);
-		}
-		free(viewer);
-		viewer = NULL;
-		dprintf(fd, "free viewer\n");
-	}
-	return (viewer);
-}
-
-t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
+t_viewer	*begin_vm(t_viewer *viewer, char **line)
 {
 	if (!*line)
-	{
-		dprintf(fd, "begin_vm, line == NULL\n");
 		return (NULL);
-	}
 	while (!ft_strstr(*line, "$$$ exec p"))
 	{
 		ft_strdel(line);
 		if (get_next_line(0, line) != 1)
 			return (NULL);
-		//dprintf(fd, "line = %s\n", *line);
-		//dprintf(fd, "char[10] = %c\n", (*line)[10]);
 		if ((*line)[10] == '1')
 		{
 			viewer->p1 = ((*line)[10] == '1' ? 'O' : 'X');
@@ -65,67 +41,74 @@ t_viewer	*begin_vm(t_viewer *viewer, char **line, int fd)
 			return (viewer);
 		}
 	}
-	dprintf(fd, "begin_vm, if doesn't work\n");
 	ft_strdel(line);
 	return (NULL);
 }
 
-void			viewer_error(char *str, t_viewer *viewer, int fd)
+int			viewer_error(char *str, t_viewer *viewer)
 {
 	if (str)
 	{
-		dprintf(fd, "%s\n", str);
 		ft_putendl_fd(str, 2);
+		return (1);
 	}
 	if (viewer)
 	{
-		dprintf(fd, "free viewer\n");
-		free_viewer(viewer, fd);
+		free_viewer(viewer);
+		return (1);
 	}
+	return (0);
+}
+
+int			begin_viewer(t_viewer *viewer, char *line, int indice)
+{
+	if (indice == 1)
+	{
+		if (!get_next_line(0, &line) || !(viewer = begin_vm(viewer, &line)))
+		{
+			viewer_error("A problem occured with the players/board", viewer);
+			return (-1);
+		}
+		ft_strdel(&line);
+		return (1);
+	}
+	if (indice == 2)
+	{
+		if (end_viewer(viewer) == -1)
+		{
+			viewer_error("A problem occured while ending the viewer", viewer);
+			return (-1);
+		}
+		ft_strdel(&line);
+		free_viewer(viewer);
+		return (1);
+	}
+	return (1);
 }
 
 int			main(void)
 {
 	t_viewer	*viewer;
-	int			fd;
 	char		*line;
 
 	viewer = NULL;
 	line = NULL;
-	if (!(fd = open("test_viewer", O_WRONLY | O_CREAT, 0644)))
-		return (-1);
-	dprintf(fd, "test\n");
 	if (!(viewer = init_viewer(viewer)))
-	{
-		viewer_error("A problem occured while mallocing the viewer", viewer, fd);
+		return (viewer_error("A problem occured", viewer) == 1 ? -1 : -1);
+	if (begin_viewer(viewer, line, 1) == -1)
 		return (-1);
-	}
-	if (!get_next_line(0, &line) || !(viewer = begin_vm(viewer, &line, fd)))
-	{
-		viewer_error("A problem occured while searching for players and the board", viewer, fd);
-		return (-1);
-	}
-	ft_strdel(&line);
-	dprintf(fd, "\nMain, success	p1 = %c\n				p2 = %c\n", viewer->p1, viewer->p2);
 	while (1)
 	{
-		if (!(viewer = get_visual(viewer, &line, fd)))
+		if (!(viewer = get_visual(viewer, &line)))
 		{
-			viewer_error("A problem occured while parsing the board", viewer, fd);
-			break ;
+			viewer_error("A problem occured while parsing the board", viewer);
+			return (-1);
 		}
 		if (viewer->status == 1)
 			break ;
 		ft_strdel(&line);
 	}
-	if (end_viewer(viewer, fd) == -1)
-	{
-		viewer_error("A problem occured while ending the viewer", viewer, fd);
+	if (begin_viewer(viewer, line, 2) == -1)
 		return (-1);
-	}
-	dprintf(fd, "main 3 line = %s\n", line);
-	ft_strdel(&line);
-	free_viewer(viewer, fd);
-	dprintf(fd, "End of viewer\n");
 	return (0);
 }

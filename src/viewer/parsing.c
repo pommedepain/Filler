@@ -12,11 +12,12 @@
 
 #include "filler.h"
 
-int			viewer_malloc(t_viewer *viewer)
+int				viewer_malloc(t_viewer *viewer)
 {
 	int i;
 
-	if (!(viewer->visual = (char **)ft_memalloc(sizeof(char *) * (viewer->h + 1))))
+	if (!(viewer->visual =
+	(char **)ft_memalloc(sizeof(char *) * (viewer->h + 1))))
 		return (-1);
 	viewer->visual[viewer->h] = 0;
 	i = -1;
@@ -29,7 +30,7 @@ int			viewer_malloc(t_viewer *viewer)
 	return (0);
 }
 
-int			get_size_v(t_viewer *viewer, char *line, int fd)
+int				get_size_v(t_viewer *viewer, char *line)
 {
 	int i;
 	int nb;
@@ -47,18 +48,16 @@ int			get_size_v(t_viewer *viewer, char *line, int fd)
 	viewer->w = nb;
 	if (viewer->h == -1 || viewer->w == -1)
 		return (-1);
-	dprintf(fd, "\nh = %d\nw = %d\n\n", viewer->h, viewer->w);
 	if (viewer_malloc(viewer) == -1)
 	{
-		dprintf(fd, "viewer_malloc failed\n");
-		free_viewer(viewer, fd);
+		free_viewer(viewer);
 		return (-1);
 	}
 	ft_strdel(&line);
 	return (0);
 }
 
-t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
+t_viewer		*viewer_loop(t_viewer *viewer, char **line)
 {
 	int i;
 	int j;
@@ -68,11 +67,7 @@ t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
 	{
 		ft_strdel(line);
 		if (get_next_line(0, line) != 1)
-		{
-			dprintf(fd, "viewer_loop, get_next_line failed\n");
-			return (free_viewer(viewer, fd));
-		}
-		//dprintf(fd, "viewer_loop, get_next_line %d = %s\n", i, (*line));
+			return (free_viewer(viewer));
 		if (ft_char_only(*line, '.', '*') == 0)
 		{
 			j = 4;
@@ -83,67 +78,49 @@ t_viewer		*viewer_loop(t_viewer *viewer, char **line, int fd)
 			}
 		}
 	}
-	i = -1;
-	while (++i < viewer->h)
-		dprintf(fd, "viewer_loop, viewer->visual %d	=	%s\n", i, viewer->visual[i]);
 	return (viewer);
 }
 
-int			find_board(t_viewer *viewer, char **line, int fd)
+int				find_board(t_viewer *viewer, char **line)
 {
 	if (!*line)
-	{
-		dprintf(fd, "find_board, line == NULL\n");
 		return (-1);
-	}
 	while (!ft_strstr(*line, "Plateau "))
 	{
 		ft_strdel(line);
 		if (!get_next_line(0, line))
 			return (-1);
-		dprintf(fd, "line = %s\n", *line);
 		if (ft_strstr(*line, "Plateau "))
-		{
-			//dprintf(fd, "get_visual, Found \"Plateau \"");
 			break ;
-		}
 		if (ft_strstr(*line, "fin: "))
 		{
+			ft_strdel(line);
 			viewer->status = 1;
-			dprintf(fd, "GAME OVER\n");
 			return (1);
 		}
 	}
-	dprintf(fd, "\nGet_size, Board =");
-	if (get_size_v(viewer, *line, fd) == -1)
-	{
-		dprintf(fd, "Get_size, fail = %s\n", *line);
+	if (get_size_v(viewer, *line) == -1)
 		return (-1);
-	}
 	if (!get_next_line(0, line))
 		return (-1);
-	dprintf(fd, "get_visual line we jump = %s\n\n", (*line));
 	ft_strdel(line);
 	return (0);
 }
 
-t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
+t_viewer		*get_visual(t_viewer *viewer, char **line)
 {
 	int		ret;
 
 	ret = 0;
 	if (!get_next_line(0, line))
-	{
-		dprintf(fd, "get_visual, gnl failed\n");
 		return (NULL);
-	}
 	if (viewer->visual != NULL)
 	{
-		print_viewer(viewer, fd);
+		print_viewer(viewer);
 		ft_tabdel(viewer->visual);
 		viewer->visual = NULL;
 	}
-	if ((ret = find_board(viewer, line, fd)) == -1)
+	if ((ret = find_board(viewer, line)) == -1)
 	{
 		if (*line)
 			ft_strdel(line);
@@ -151,13 +128,10 @@ t_viewer		*get_visual(t_viewer *viewer, char **line, int fd)
 	}
 	if (viewer->status == -1)
 	{
-		start_viewer(viewer, fd);
+		start_viewer(viewer);
 		viewer->status = 2;
 	}
 	if (ret == 1)
-	{
-		dprintf(fd, "get_visual, line = %s\n", *line);
 		return (viewer);
-	}
-	return (viewer_loop(viewer, line, fd));
+	return (viewer_loop(viewer, line));
 }

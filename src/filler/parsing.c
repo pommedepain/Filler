@@ -12,23 +12,6 @@
 
 #include "filler.h"
 
-int			game_malloc(t_game *game)
-{
-	int i;
-
-	if (!(game->form = (char **)ft_memalloc(sizeof(char *) * (game->h + 1))))
-		return (-1);
-	game->form[game->h] = 0;
-	i = -1;
-	while (++i < game->h)
-	{
-		if (!(game->form[i] = ft_strnew(game->w)))
-			return (-1);
-	}
-	game->form[game->h - 1][game->w] = '\0';
-	return (0);
-}
-
 int			get_size(t_game *game, char *line)
 {
 	int i;
@@ -47,9 +30,6 @@ int			get_size(t_game *game, char *line)
 	game->w = nb;
 	if (game->h == -1 || game->w == -1)
 		return (-1);
-	if (game_malloc(game) == -1)
-		return (-1);
-	ft_strdel(&line);
 	return (0);
 }
 
@@ -61,17 +41,15 @@ t_game		*game_loop(t_game *game, char **line)
 	i = -1;
 	while (++i < game->h)
 	{
+		if (!game->form[i])
+			if (!(game->form[i] = ft_strnew(game->w)))
+				return (free_game(game));
 		if (get_next_line(0, line) != 1)
-			return (/*free_game(game)*/NULL);
+			return (free_game(game));
+		j = 3;
 		if (ft_char_only(*line, '.', '*') == 0)
-		{
-			j = 4;
-			while (j - 4 < game->w)
-			{
+			while (++j - 4 < game->w)
 				game->form[i][j - 4] = (*line)[j];
-				j++;
-			}
-		}
 		else
 		{
 			j = -1;

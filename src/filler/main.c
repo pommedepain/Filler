@@ -15,13 +15,11 @@
 t_player	*begin_vm(t_player *player, char **line)
 {
 	if (!*line)
-	{
-		//free_prog(NULL, NULL, &player, line);
 		return (NULL);
-	}
 	if (ft_strstr(*line, "$$$ exec p") && ft_strstr(*line, "psentilh"))
 	{
-		if ((ft_strlens(*line) > 11) && ((*line)[10] == '1' || (*line)[10] == '2'))
+		if ((ft_strlens(*line) > 11)
+		&& ((*line)[10] == '1' || (*line)[10] == '2'))
 		{
 			player->id = ((*line)[10] == '1' ? 'O' : 'X');
 			player->enmy = ((*line)[10] == '1' ? 'X' : 'O');
@@ -29,7 +27,6 @@ t_player	*begin_vm(t_player *player, char **line)
 			return (player);
 		}
 	}
-	//free_prog(NULL, NULL, &player, line);
 	return (NULL);
 }
 
@@ -45,15 +42,9 @@ int			main(void)
 	player = NULL;
 	piece = NULL;
 	if (!(player = init_player(player)))
-	{
-		//free_player(player);
 		return (-1);
-	}
 	if (!get_next_line(0, &line) || !(player = begin_vm(player, &line)))
-	{
-		//free_prog(NULL, NULL, &player, &line);
-		return (-1);
-	}
+		return (free_prog(&board, &piece, &player, &line) == NULL ? 0 : 0);
 	ft_strdel(&line);
 	while (1)
 	{

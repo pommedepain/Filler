@@ -127,7 +127,7 @@ int			solve(t_game *board, t_game *piece, t_player *player)
 
 	if (!board || !piece || !player)
 		return (-1);
-	if (!(enmy = (int *)malloc(sizeof(int) * 2)))
+	if (!(enmy = (int *)ft_memalloc(sizeof(int) * 2)))
 		return (-1);
 	enmy = find_enmy(board, player, enmy, 0);
 	player = first_solving(board, player, piece, enmy);

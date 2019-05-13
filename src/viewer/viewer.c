@@ -12,57 +12,64 @@
 
 #include "filler.h"
 
-int			print_viewer(t_viewer *viewer, int fd)
+t_viewer	*free_viewer(t_viewer *viewer)
 {
-	int			i;
-	int			j;
-	int			h;
-	int			w;
-	
+	int i;
+
+	if (viewer)
+	{
+		if (viewer->visual)
+		{
+			i = -1;
+			while (viewer->visual[++i])
+				free(viewer->visual[i]);
+		}
+		free(viewer);
+		viewer = NULL;
+	}
+	return (viewer);
+}
+
+void		ft_color_viewer(t_viewer *viewer)
+{
 	init_pair(1, 2, 0);
 	init_pair(2, 1, 0);
 	init_pair(3, 7, 0);
 	wattron(viewer->ptr, A_BOLD);
-	h = 1;
-	dprintf(fd, "\nPRINT VIEWER:\n");
-	i = 0;
-	while (viewer->visual[i])
+}
+
+int			print_viewer(t_viewer *viewer)
+{
+	int			i;
+	int			j;
+
+	ft_color_viewer(viewer);
+	i = -1;
+	while (viewer->visual[++i])
 	{
-		j = 0;
-		w = 1;
-		while (viewer->visual[i][j])
+		j = -1;
+		while (viewer->visual[i][++j])
 		{
 			if (viewer->visual[i][j] == 'o' || viewer->visual[i][j] == 'O')
 			{
 				wattron(viewer->ptr, COLOR_PAIR(1));
-				mvwaddch(viewer->ptr, h, w, 'O');
+				mvwaddch(viewer->ptr, i + 1, j + 1, 'O');
 				wrefresh(viewer->ptr);
-				dprintf(fd, "%c", viewer->visual[i][j]);
 			}
 			if (viewer->visual[i][j] == 'x' || viewer->visual[i][j] == 'X')
 			{
 				wattron(viewer->ptr, COLOR_PAIR(2));
-				mvwaddch(viewer->ptr, h, w, 'X');
+				mvwaddch(viewer->ptr, i + 1, j + 1, 'X');
 				wrefresh(viewer->ptr);
-				dprintf(fd, "%c", viewer->visual[i][j]);
 			}
-			j++;
-			w++;
 		}
-		dprintf(fd, "\n");
-		i++;
-		h++;
 	}
-	wattroff(viewer->ptr, COLOR_PAIR(2));
-	wattroff(viewer->ptr, COLOR_PAIR(1));
-	wattroff(viewer->ptr, A_BOLD);
-	wrefresh(viewer->ptr);
 	return (0);
 }
 
-int			start_viewer(t_viewer *viewer, int fd)
+int			start_viewer(t_viewer *viewer)
 {
-	WINDOW		*ptr_win;
+	t_window	ptr_win;
 	int			h;
 	int			w;
 
@@ -74,34 +81,23 @@ int			start_viewer(t_viewer *viewer, int fd)
 	start_color();
 	init_pair(3, 7, 0);
 	wborder(ptr_win, 0, 0, 0, 0, 0, 0, 0, 0);
-	h = 1;
-	dprintf(fd, "\nSTART VIEWER:\n");
-	while (h < viewer->h + 1)
+	h = 0;
+	while (++h < viewer->h + 1)
 	{
-		w = 1;
-		while (w < viewer->w + 1)
+		w = 0;
+		while (++w < viewer->w + 1)
 		{
 			wattron(ptr_win, COLOR_PAIR(3));
 			mvwaddch(ptr_win, h, w, '.');
 			wrefresh(ptr_win);
-			dprintf(fd, "%c", '.');
-			w++;
 		}
-		dprintf(fd, "\n");
-		h++;
 	}
-	dprintf(fd, "\n\n");
-	wattroff(ptr_win, COLOR_PAIR(1));
 	viewer->ptr = ptr_win;
 	return (0);
 }
 
-int			end_viewer(t_viewer	*viewer, int fd)
+int			end_viewer(t_viewer *viewer)
 {
-	int ch;
-
-	dprintf(fd, "END of viewer\n");
-	ch = getch();
 	endwin();
 	viewer->status = 3;
 	return (0);
