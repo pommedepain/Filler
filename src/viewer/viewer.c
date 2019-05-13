@@ -25,9 +25,8 @@ t_viewer	*free_viewer(t_viewer *viewer)
 				free(viewer->visual[i]);
 		}
 		free(viewer);
-		viewer = NULL;
 	}
-	return (viewer);
+	return (NULL);
 }
 
 void		ft_color_viewer(t_viewer *viewer)
