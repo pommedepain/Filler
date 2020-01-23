@@ -24,9 +24,7 @@ make
 ## Usage
 
 ```
-./resources/filler_vm -f resources/maps
-/map00 -p1 ./psentilh.filler -p2 resources/players/abanlin.fille
-r | ./viewer
+./resources/filler_vm -f resources/maps/map00 -p1 ./psentilh.filler -p2 resources/players/abanlin.filler | ./viewer
 ```
 
 <ul>
