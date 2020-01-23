@@ -28,7 +28,6 @@ make
 ```
 
 <ul>
-  <li>Run 'make' to compile the player.</li>
   <li>-f is for the choice of map (that you can all find in ./resources/maps/).</li>
   <li>-p1 is for player one.</li>
   <li>-p2 is for player two.</li>
@@ -40,8 +39,8 @@ You can find other players and different sizes of maps in the resources folder.
 There are options you can add before the pipe:
 <ul>
   <li>-t --timeset timeout in second</li>
-  <li>-q --quietquiet mode</li>
-  <li>-i --interactiveinteractive mode(default)</li>
+  <li>-q --quiet quiet mode</li>
+  <li>-i --interactive interactive mode(default)</li>
   <li>-s --seeduse the seed number (initialization random) (man srand)</li>
 </ul>
 
