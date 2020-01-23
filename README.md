@@ -37,6 +37,8 @@ r | ./viewer
   <li>'| ./viewer' is for a handmade viewer I did as a bonus (green is for Player 1 and red for Player 2). You can also execute the program without it, only the display will change.</li>
 </ul>
 
+You can find other players and different sizes of maps in the resources folder.
+
 There are options you can add before the pipe:
 <ul>
   <li>-t --timeset timeout in second</li>
