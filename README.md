@@ -43,5 +43,3 @@ There are options you can add before the pipe:
   <li>-i --interactive interactive mode(default)</li>
   <li>-s --seeduse the seed number (initialization random) (man srand)</li>
 </ul>
-
-![Grade](./grade.png)
